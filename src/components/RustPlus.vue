@@ -26,6 +26,49 @@
         </l-icon>
       </l-marker>
 
+      <!-- map markers -->
+      <l-marker v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
+
+        <!-- Player=1 -->
+        <template v-if="mapMarker.type === 1">
+          <l-popup content="Player"/>
+        </template>
+
+        <!-- Explosion=2 -->
+        <template v-if="mapMarker.type === 2">
+          <l-popup content="Explosion"/>
+          <l-icon :icon-size="[30, 30]" icon-url="/images/map/explosion_marker.png"></l-icon>
+        </template>
+
+        <!-- VendingMachine=3 -->
+        <template v-if="mapMarker.type === 3">
+          <l-popup content="Vending Machine"/>
+          <l-icon :icon-size="[30, 30]" icon-url="/images/map/vending_machine.png"></l-icon>
+        </template>
+
+        <!-- CH47=4 todo: icon -->
+        <template v-if="mapMarker.type === 4">
+          <l-popup content="CH47"/>
+        </template>
+
+        <!-- CargoShip=5 todo: icon -->
+        <template v-if="mapMarker.type === 5">
+          <l-popup content="Cargo Ship"/>
+        </template>
+
+        <!-- Crate=6 -->
+        <template v-if="mapMarker.type === 6">
+          <l-popup content="Locked Crate"/>
+          <l-icon :icon-size="[30, 30]" icon-url="/images/map/crate_marker.png"></l-icon>
+        </template>
+
+        <!-- GenericRadius=7 todo: unsure -->
+        <template v-if="mapMarker.type === 7">
+          <l-popup content="GenericRadius"/>
+        </template>
+
+      </l-marker>
+
     </l-map>
   </div>
 </template>
@@ -90,6 +133,7 @@ export default {
       rustMapImageBounds: null,
       rustMapImageColour: null,
       rustMonuments: [],
+      rustMapMarkers: [],
       rustTeamMembers: [],
 
     }
@@ -325,8 +369,8 @@ export default {
       var mapObject = this.$refs.map.mapObject;
 
       // convert x,y to lat,lng
-      var southWest = mapObject.unproject([0, width], mapObject.getMaxZoom());
-      var northEast = mapObject.unproject([height, 0], mapObject.getMaxZoom());
+      var southWest = mapObject.unproject([0, height], mapObject.getMaxZoom());
+      var northEast = mapObject.unproject([width, 0], mapObject.getMaxZoom());
 
       // return as latlng bounds
       return new L.LatLngBounds(southWest, northEast);
@@ -374,9 +418,15 @@ export default {
       });
 
     },
+    mapMarkers: function() {
+
+      // update map markers
+      this.rustMapMarkers = this.mapMarkers.markers;
+
+    },
     teamInfo: function() {
 
-      // update monuments
+      // update team members
       this.rustTeamMembers = this.teamInfo.members.map((teamMember) => {
 
         return {
