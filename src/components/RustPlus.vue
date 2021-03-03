@@ -187,37 +187,43 @@ export default {
 
     onMessageReceived: function(message) {
 
-      // handle info response
-      if(message.response.info){
-        this.info = message.response.info;
-        console.log(this.info);
-        return true;
-      }
+      if(message.response){
 
-      // handle team info response
-      else if(message.response.teamInfo){
-        this.teamInfo = message.response.teamInfo;
-        console.log(this.teamInfo);
-        return true;
-      }
+        // handle info response
+        if(message.response.info){
+          this.info = message.response.info;
+          console.log(this.info);
+          return true;
+        }
 
-      // handle map response
-      else if(message.response.map){
-        this.map = message.response.map;
-        console.log(this.map);
-        //this.onMap();
-        return true;
-      }
+        // handle team info response
+        else if(message.response.teamInfo){
+          this.teamInfo = message.response.teamInfo;
+          console.log(this.teamInfo);
+          return true;
+        }
 
-      // handle map markers response
-      else if(message.response.mapMarkers){
-        this.mapMarkers = message.response.mapMarkers;
-        console.log(this.mapMarkers);
-        return true;
-      }
+        // handle map response
+        else if(message.response.map){
+          this.map = message.response.map;
+          console.log(this.map);
+          //this.onMap();
+          return true;
+        }
 
-      // other messages
-      else {
+        // handle map markers response
+        else if(message.response.mapMarkers){
+          this.mapMarkers = message.response.mapMarkers;
+          console.log(this.mapMarkers);
+          return true;
+        }
+
+        // other messages
+        else {
+          console.log(message);
+        }
+
+      } else {
         console.log(message);
       }
 
