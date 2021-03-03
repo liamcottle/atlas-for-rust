@@ -23,6 +23,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+// add vue cookie
+var VueCookie = require('vue-cookie');
+Vue.use(VueCookie);
+
 // render vue app
 new Vue({
   render: h => h(App),

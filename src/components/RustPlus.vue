@@ -1,11 +1,22 @@
 <template>
   <div>
+
+    <div style="background:#cccccc;padding:0.5rem;">
+      <input v-model="ip" type="text" placeholder="IP"/>
+      <input v-model="port" type="text" placeholder="Port"/>
+      <input v-model="playerId" type="text" placeholder="Player ID"/>
+      <input v-model="playerToken" type="text" placeholder="Player Token"/>
+      <button v-if="status !== 'connected'" @click="connect" type="button">Connect</button>
+      <button v-if="status === 'connected'" @click="reload" type="button">Refresh</button>
+      <button v-if="status === 'connected'" @click="disconnect" type="button">Disconnect</button>
+      <span>Status: {{ status }}</span>
+    </div>
+
     <l-map ref="map"
        :crs="mapCRS"
        :zoom="mapZoom"
        :min-zoom="mapMinZoom"
        :max-zoom="mapMaxZoom"
-       :max-bounds="rustMapImageBounds"
        style="width:100vw;height:100vh;"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
@@ -141,15 +152,18 @@ export default {
   },
   mounted: async function () {
 
+    // load cookies
+    this.ip = this.$cookie.get('ip');
+    this.port = this.$cookie.get('port');
+    this.playerId = this.$cookie.get('playerId');
+    this.playerToken = this.$cookie.get('playerToken');
+
     // load protobuf definitions
     this.protospec = await window.Protobuf.load('rustplus.proto');
 
     // lookup proto types
     this.AppRequest = this.protospec.lookupType("rustplus.AppRequest");
     this.AppMessage = this.protospec.lookupType("rustplus.AppMessage");
-
-    // connect
-    //this.connect();
 
   },
   methods: {
@@ -158,11 +172,7 @@ export default {
       this.status = "connecting";
     },
     onConnected: function() {
-
       this.status = "connected";
-
-      this.autoreload();
-
     },
     onDisconnected: function() {
       this.status = "disconnected";
@@ -214,6 +224,11 @@ export default {
 
     connect: function() {
 
+      // ip and port are required to connect
+      if(!this.ip || !this.port){
+        return;
+      }
+
       this.onConnecting();
 
       // connect to websocket
@@ -258,6 +273,13 @@ export default {
 
     },
 
+    disconnect: function() {
+      if(this.websocket){
+        this.websocket.close();
+      }
+      this.onDisconnected();
+    },
+
     sendRequest: function(data, callback) {
 
       // increment sequence number
@@ -287,11 +309,6 @@ export default {
       // fire message sent handler when request has been sent, this is useful for logging
       this.onMessageSent(message);
 
-    },
-
-    autoreload: function() {
-      this.reload();
-      setTimeout(this.autoreload, 5000);
     },
 
     reload: function() {
@@ -397,6 +414,18 @@ export default {
 
   },
   watch: {
+    ip: function() {
+      this.$cookie.set("ip", this.ip, 7);
+    },
+    port: function() {
+      this.$cookie.set("port", this.port, 7);
+    },
+    playerId: function() {
+      this.$cookie.set("playerId", this.playerId, 7);
+    },
+    playerToken: function() {
+      this.$cookie.set("playerToken", this.playerToken, 7);
+    },
     map: function() {
 
       // update map data
