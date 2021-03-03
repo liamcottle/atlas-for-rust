@@ -1,0 +1,24 @@
+/* remove default margin and padding */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* remove default styles from leaflet div icons */
+.leaflet-div-icon {
+    background: unset !important;
+    border: unset !important;
+}
+
+/* use custom font for rust monument markers */
+.rust-map-monument-text {
+    color:#000000;
+    white-space:nowrap;
+    font-family:PermanentMarker,sans-serif;
+}
+
+/* add font used by rust map */
+@font-face {
+    font-family: 'PermanentMarker';
+    src: url('/fonts/PermanentMarker.ttf');
+}
