@@ -104,9 +104,9 @@ export default {
       status: "none",
 
       /* map config */
-      mapZoom: 19,
-      mapMinZoom: 18,
-      mapMaxZoom: 21,
+      mapZoom: 1,
+      mapMinZoom: 1,
+      mapMaxZoom: 5,
       mapCRS: L.CRS.Simple,
 
       /* protobuf */
