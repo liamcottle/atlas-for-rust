@@ -20,7 +20,7 @@
 
       <!-- team members -->
       <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
-        <l-popup :content="teamMember.name"/>
+        <l-tooltip :content="teamMember.name"/>
         <l-icon>
           <img :src="teamMember.avatarUrl" width="30" height="30" style="border-radius:50%;border: 2px solid #00FF00"/>
         </l-icon>
@@ -31,12 +31,12 @@
 
         <!-- Player=1 -->
         <template v-if="mapMarker.type === 1">
-          <l-popup content="Player"/>
+          <l-tooltip content="Player Marker"/>
         </template>
 
         <!-- Explosion=2 -->
         <template v-if="mapMarker.type === 2">
-          <l-popup content="Explosion"/>
+          <l-tooltip content="Explosion"/>
           <l-icon :icon-size="[30, 30]" icon-url="/images/map/explosion_marker.png"></l-icon>
         </template>
 
@@ -48,17 +48,17 @@
 
         <!-- CH47=4 todo: icon -->
         <template v-if="mapMarker.type === 4">
-          <l-popup content="CH47"/>
+          <l-tooltip content="CH47"/>
         </template>
 
         <!-- CargoShip=5 todo: icon -->
         <template v-if="mapMarker.type === 5">
-          <l-popup content="Cargo Ship"/>
+          <l-tooltip content="Cargo Ship"/>
         </template>
 
         <!-- Crate=6 -->
         <template v-if="mapMarker.type === 6">
-          <l-popup content="Locked Crate"/>
+          <l-tooltip content="Locked Crate"/>
           <l-icon :icon-size="[30, 30]" icon-url="/images/map/crate_marker.png"></l-icon>
         </template>
 
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { LMap, LMarker, LIcon, LPopup, LImageOverlay } from "vue2-leaflet";
+import { LMap, LMarker, LIcon, LPopup, LImageOverlay, LTooltip } from "vue2-leaflet";
 
 export default {
   name: 'RustPlus',
@@ -83,6 +83,7 @@ export default {
     LMarker,
     LIcon,
     LPopup,
+    LTooltip,
     LImageOverlay,
   },
   data: function() {
