@@ -173,6 +173,7 @@ export default {
     },
     onConnected: function() {
       this.status = "connected";
+      this.reload();
     },
     onDisconnected: function() {
       this.status = "disconnected";
