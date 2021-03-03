@@ -56,7 +56,7 @@
 
         <!-- VendingMachine=3 -->
         <template v-if="mapMarker.type === 3">
-          <l-popup content="Vending Machine"/>
+          <l-tooltip :content="mapMarker.name"/>
           <l-icon :icon-size="[30, 30]" icon-url="/images/map/vending_machine.png"></l-icon>
         </template>
 
