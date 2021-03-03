@@ -31,9 +31,12 @@
 
       <!-- team members -->
       <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
-        <l-tooltip :content="teamMember.name"/>
+        <l-tooltip>
+          {{ teamMember.name }} ({{ teamMember.isOnline ? 'Online' : 'Offline' }})
+        </l-tooltip>
         <l-icon>
-          <img :src="teamMember.avatarUrl" width="30" height="30" style="border-radius:50%;border: 2px solid #00FF00"/>
+          <img :src="teamMember.avatarUrl" width="30" height="30" style="border-radius:50%;border:2px solid;background-color:#000000;"
+               :style="{'border-color': teamMember.isOnline ? '#00FF00' : '#CCCCCC'}"/>
         </l-icon>
       </l-marker>
 
@@ -463,6 +466,7 @@ export default {
         return {
           name: teamMember.name,
           avatarUrl: 'https://companion-rust.facepunch.com/api/avatar/' + teamMember.steamId,
+          isOnline: teamMember.isOnline,
           x: teamMember.x,
           y: teamMember.y,
         };
