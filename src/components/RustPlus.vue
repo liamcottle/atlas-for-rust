@@ -2,9 +2,9 @@
   <div class="h-full flex flex-col">
 
     <!-- top bar -->
-    <div class="flex-none flex bg-gray-300 p-2">
+    <div class="flex-none flex bg-gray-700 p-2">
 
-      <div class="flex-1 mx-2">
+      <div class="flex-1 mx-2 text-white">
         <div class="text-md font-bold">{{server.name}}</div>
         <div class="text-sm">{{server.ip}}:{{server.port}}</div>
       </div>
