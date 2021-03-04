@@ -165,7 +165,7 @@ export default {
       error: null,
 
       /* map config */
-      mapZoom: 1,
+      mapZoom: 3,
       mapMinZoom: 1,
       mapMaxZoom: 5,
       mapCRS: L.CRS.Simple,
@@ -542,10 +542,19 @@ export default {
         return;
       }
 
+      // determine if we should center the map
+      var shouldCenterMap = this.rustMapImageBounds == null;
+
       // update map data
       this.rustMapImageColour = this.map.background;
       this.rustMapImageBounds = this.getLatLngBoundsForMapImage(this.map.width, this.map.height);
       this.rustMapImageUrl = this.createMapUrl();
+
+      // center the map
+      if(shouldCenterMap){
+        var mapObject = this.$refs.map.mapObject;
+        mapObject.fitBounds(this.rustMapImageBounds);
+      }
 
       // update monuments
       this.rustMonuments = this.map.monuments.map((monument) => {
