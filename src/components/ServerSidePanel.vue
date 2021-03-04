@@ -20,7 +20,7 @@
 
     <!-- add server button -->
     <div class="py-2">
-      <div @click="onAddServer" class="inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer">
+      <div @click="onAddServer" class="inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer hover:bg-gray-200">
         <span class="text-xl font-medium leading-none text-gray-800">+</span>
       </div>
     </div>
