@@ -64,7 +64,11 @@
         <template v-if="mapMarker.type === 4">
           <l-tooltip content="CH47"/>
           <l-icon>
-            <img src="/images/map/chinook_map_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
+            <div style="position:relative" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}">
+              <img src="/images/map/chinook_map_body.png" width="30" height="30"/>
+              <img src="/images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-anticlockwise" style="position: absolute;top:-5px;left:5px;"/> <!-- anti clockwise rotation -->
+              <img src="/images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-clockwise" style="position: absolute;top:15px;left:5px;"/> <!-- clockwise rotation -->
+            </div>
           </l-icon>
         </template>
 

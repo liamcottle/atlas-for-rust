@@ -17,6 +17,32 @@ html, body {
     font-family:PermanentMarker,sans-serif;
 }
 
+.chinook-blade-spin-clockwise {
+    animation:chinook-blade-spin-clockwise 0.6s infinite linear
+}
+
+.chinook-blade-spin-anticlockwise {
+    animation:chinook-blade-spin-anticlockwise 0.6s infinite linear
+}
+
+@keyframes chinook-blade-spin-clockwise {
+    0%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(359deg)
+    }
+}
+
+@keyframes chinook-blade-spin-anticlockwise {
+    0%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(-359deg)
+    }
+}
+
 /* add font used by rust map */
 @font-face {
     font-family: 'PermanentMarker';
