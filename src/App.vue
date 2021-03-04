@@ -77,8 +77,6 @@ export default {
   methods: {
 
     onSteamConnected(event) {
-      console.log("onSteamConnected");
-      console.log(event);
       this.steamId = event.steamId;
       this.steamToken = event.steamToken;
     },
