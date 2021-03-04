@@ -35,7 +35,12 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="flex-none">Bottom Bar</div>
+        <div class="flex-none bg-gray-700 px-4 py-2 text-white">
+
+          <!-- fcm status -->
+          <div class="text-xs">FCM Status: {{ fcmStatus }}</div>
+
+        </div>
 
       </div>
     </template>
@@ -80,6 +85,8 @@ export default {
       servers: [],
       selectedServer: null,
 
+      fcmStatus: "Not Ready",
+
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
       isShowingRemoveServerModal: false,
@@ -101,6 +108,73 @@ export default {
 
     // load servers from store
     this.servers = window.ElectronStore.get('servers') || [];
+
+    // connect to fcm
+    var fcmNotificationReceiver = new window.FCMNotificationReceiver(window.ipcRenderer);
+
+    fcmNotificationReceiver.on('register.success', (data) => {
+
+      // update fcm status
+      this.fcmStatus = "Registered";
+
+      // save fcm credentials to store
+      window.ElectronStore.set('fcm_credentials', data.credentials);
+
+      // start listening for notifications
+      fcmNotificationReceiver.startListeningForNotifications(data.credentials, []);
+
+    });
+
+    fcmNotificationReceiver.on('register.error', (data) => {
+      this.fcmStatus = "Error: " + data.error;
+    });
+
+    fcmNotificationReceiver.on('notifications.listen.started', (data) => {
+      this.fcmStatus = "Listening";
+    });
+
+    fcmNotificationReceiver.on('notifications.listen.stopped', (data) => {
+      this.fcmStatus = "Stopped Listening";
+    });
+
+    fcmNotificationReceiver.on('notifications.received', (data) => {
+
+      // save persistent id to store if not already in store
+      var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
+      if(persistentIds.indexOf(data.persistentId) === -1){
+        persistentIds.push(data.persistentId);
+      }
+      window.ElectronStore.set('fcm_persistent_ids', persistentIds);
+
+      // todo handle notification
+      console.log(data);
+
+    });
+
+    fcmNotificationReceiver.on('notifications.error', (data) => {
+      this.fcmStatus = "Notification Error";
+    });
+
+    // check for existing fcm credentials
+    var credentials = window.ElectronStore.get('fcm_credentials');
+    if(credentials){
+
+      // get persistent ids
+      var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
+
+      // clear saved persistent ids
+      window.ElectronStore.delete('fcm_persistent_ids');
+
+      // start listening for notifications with existing credentials
+      fcmNotificationReceiver.startListeningForNotifications(credentials, persistentIds);
+
+    } else {
+
+      // register for a new set of fcm credentials
+      this.fcmStatus = "Registering...";
+      fcmNotificationReceiver.register('976529667804');
+
+    }
 
   },
   methods: {
