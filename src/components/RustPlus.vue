@@ -79,7 +79,7 @@
         <!-- Crate=6 -->
         <template v-if="mapMarker.type === 6">
           <l-tooltip content="Locked Crate"/>
-          <l-icon :icon-size="[30, 30]" icon-url="/images/map/crate_marker.png"></l-icon>
+          <l-icon :icon-size="[30, 30]" icon-url="/images/map/crate.png"></l-icon>
         </template>
 
         <!-- GenericRadius=7 todo: unsure -->
