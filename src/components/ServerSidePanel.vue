@@ -2,12 +2,20 @@
   <div class="bg-gray-800 py-2 px-4 w-full h-full text-center overflow-scroll">
 
     <!-- server list -->
-    <div v-for="server in servers" class="py-2">
+    <div v-for="server in servers" class="py-2 has-tooltip flex">
+
+      <!-- server icon -->
       <div @click="onServerSelected(server)" class="inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-500 shadow border-4 cursor-pointer" :class="[isServerSelected(server) ? 'border-green-500' : 'border-transparent']">
         <span class="text-xl font-medium leading-none text-white">
           {{ server.name.charAt(0).toUpperCase() }}
         </span>
       </div>
+
+      <!-- server name tooltip -->
+      <div class='tooltip rounded shadow-lg h-14 p-4 bg-gray-800 text-white ml-20 whitespace-nowrap'>
+          {{ server.name }}
+      </div>
+
     </div>
 
     <!-- add server button -->
