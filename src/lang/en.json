@@ -47,5 +47,7 @@
   "monument.hapis_tugboatbeached_display_name": "Beached Tugboat",
   "monument.hapis_refinery_refresh": "Refinery",
   "monument.Hapis_outpost_b3": "Outpost B3",
-  "monument.train_tunnel_display_name": "Train Tunnel"
+  "monument.train_tunnel_display_name": "Train Tunnel",
+  "monument.stables_a": "Ranch",
+  "monument.stables_b": "Ranch"
 }
