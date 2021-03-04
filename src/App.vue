@@ -195,8 +195,10 @@ export default {
       }
       window.ElectronStore.set('fcm_persistent_ids', persistentIds);
 
-      // todo handle notification
-      console.log(data);
+      // handle notification
+      if(data.notification){
+        this.onNotificationReceived(data.notification);
+      }
 
     });
 
@@ -227,6 +229,46 @@ export default {
 
   },
   methods: {
+
+    onNotificationReceived(notification) {
+
+      // make sure notification has data
+      if(!notification.data){
+        console.log("notification has no data!");
+        console.log(notification);
+        return;
+      }
+
+      // make sure notification has body
+      if(!notification.data.body){
+        console.log("notification has no body!");
+        console.log(notification);
+        return;
+      }
+
+      // parse notification
+      var notificationBody = JSON.parse(notification.data.body);
+
+      // make sure body has type
+      if(!notificationBody.type){
+        console.log("notification body has no type!");
+        console.log(notificationBody);
+        return;
+      }
+
+      // handle server pairing
+      if(notificationBody.type === 'server'){
+        this.onAddServer({
+          id: notificationBody.id,
+          name: notificationBody.name,
+          ip: notificationBody.ip,
+          port: notificationBody.port,
+          playerId: notificationBody.playerId,
+          playerToken: notificationBody.playerToken,
+        })
+      }
+
+    },
 
     confirmRemoveServer(event) {
       this.serverToRemoveId = event.id;
@@ -296,8 +338,8 @@ export default {
 
       // get server data from event
       var server = {
-        id: uuidv4(),
-        name: "New Server", // name will be updated when info fetched
+        id: event.id || uuidv4(),
+        name: event.name || "New Server",
         ip: event.ip,
         port: event.port,
         playerId: event.playerId,
