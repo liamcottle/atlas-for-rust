@@ -178,14 +178,6 @@ export default {
     this.AppRequest = this.protospec.lookupType("rustplus.AppRequest");
     this.AppMessage = this.protospec.lookupType("rustplus.AppMessage");
 
-    // listen for pong from ipc
-    window.ipcRenderer.on('pong', (event, data) => {
-      console.log("pong!");
-    });
-
-    // send ping via ipc
-    window.ipcRenderer.send('ping');
-
   },
   methods: {
 

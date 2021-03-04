@@ -9,11 +9,14 @@
     "electron-dev": "NODE_ENV=DEV vue-cli-service serve & sleep 5 && NODE_ENV=DEV electron electron.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "electron": "^12.0.0",
     "leaflet": "^1.7.1",
     "long": "^4.0.0",
     "protobufjs": "^6.10.2",
+    "push-receiver": "^2.1.1",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-cookie": "^1.1.4",
     "vue2-leaflet": "^2.6.0"

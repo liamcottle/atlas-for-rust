@@ -2,6 +2,7 @@ const electron = require('electron');
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
+const FCMNotificationManager = require('./src/ipc/main/FCMNotificationManager');
 
 let url
 if(process.env.NODE_ENV === 'DEV'){
@@ -12,10 +13,8 @@ if(process.env.NODE_ENV === 'DEV'){
     url = `file://${process.cwd()}/dist/index.html`;
 }
 
-// setup ipc
-ipcMain.on('ping', function (event, data) {
-    event.sender.send('pong');
-});
+// init fcm notification manager
+let fcmNotificationManager = new FCMNotificationManager(ipcMain);
 
 app.on('ready', () => {
     let window = new BrowserWindow({
