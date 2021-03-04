@@ -39,7 +39,7 @@
               <div class="text-left mb-4">
                 <label for="player-id" class="block text-sm font-medium text-gray-700">Player ID</label>
                 <div class="mt-1">
-                  <input v-model="playerId" type="text" id="player-id" class="disabled:opacity-50 shadow-sm focus:outline-none block w-full sm:text-sm border-gray-300 rounded-md" disabled>
+                  <input v-model="playerId" type="text" id="player-id" class="shadow-sm focus:outline-none block w-full sm:text-sm border-gray-300 rounded-md">
                 </div>
               </div>
 
