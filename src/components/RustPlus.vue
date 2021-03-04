@@ -51,13 +51,13 @@
         <!-- Explosion=2 -->
         <template v-if="mapMarker.type === 2">
           <l-tooltip content="Explosion"/>
-          <l-icon :icon-size="[30, 30]" icon-url="/images/map/explosion_marker.png"></l-icon>
+          <l-icon :icon-size="[30, 30]" icon-url="images/map/explosion_marker.png"></l-icon>
         </template>
 
         <!-- VendingMachine=3 -->
         <template v-if="mapMarker.type === 3">
           <l-tooltip :content="mapMarker.name"/>
-          <l-icon :icon-size="[30, 30]" icon-url="/images/map/shop_green.png"></l-icon>
+          <l-icon :icon-size="[30, 30]" icon-url="images/map/shop_green.png"></l-icon>
         </template>
 
         <!-- CH47=4 -->
@@ -65,9 +65,9 @@
           <l-tooltip content="CH47"/>
           <l-icon>
             <div style="position:relative" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}">
-              <img src="/images/map/chinook_map_body.png" width="30" height="30"/>
-              <img src="/images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-anticlockwise" style="position: absolute;top:-5px;left:5px;"/> <!-- anti clockwise rotation -->
-              <img src="/images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-clockwise" style="position: absolute;top:15px;left:5px;"/> <!-- clockwise rotation -->
+              <img src="images/map/chinook_map_body.png" width="30" height="30"/>
+              <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-anticlockwise" style="position: absolute;top:-5px;left:5px;"/> <!-- anti clockwise rotation -->
+              <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-clockwise" style="position: absolute;top:15px;left:5px;"/> <!-- clockwise rotation -->
             </div>
           </l-icon>
         </template>
@@ -76,14 +76,14 @@
         <template v-if="mapMarker.type === 5">
           <l-tooltip content="Cargo Ship"/>
           <l-icon>
-            <img src="/images/map/cargo_ship_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
+            <img src="images/map/cargo_ship_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
           </l-icon>
         </template>
 
         <!-- Crate=6 -->
         <template v-if="mapMarker.type === 6">
           <l-tooltip content="Locked Crate"/>
-          <l-icon :icon-size="[30, 30]" icon-url="/images/map/crate.png"></l-icon>
+          <l-icon :icon-size="[30, 30]" icon-url="images/map/crate.png"></l-icon>
         </template>
 
         <!-- GenericRadius=7 todo: unsure -->
@@ -148,7 +148,7 @@ export default {
       /* map icons */
       mapIcons: {
         crate: L.icon({
-          iconUrl: '/images/map/crate_marker.png',
+          iconUrl: 'images/map/crate_marker.png',
           iconSize: [35, 35],
         }),
       },
