@@ -17,7 +17,6 @@
 
           <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
             <p>To add a server, open Rust and select "Pair" from the in game menu.</p>
-            <p>We will show the server details once you have paired.</p>
             <p>Alternatively, select an already paired server from the side menu.</p>
           </div>
 
