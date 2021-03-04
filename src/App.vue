@@ -75,7 +75,8 @@ export default {
     this.steamId = window.ElectronStore.get('steam_id');
     this.steamToken = window.ElectronStore.get('steam_token');
 
-    // todo load servers from database
+    // load servers from store
+    this.servers = window.ElectronStore.get('servers') || [];
 
   },
   methods: {
@@ -107,13 +108,14 @@ export default {
         playerToken: event.playerToken,
       };
 
-      // todo add to servers database
-
       // add server
       this.servers.push(server);
 
       // set server as selected
       this.selectedServer = server;
+
+      // update servers in store
+      window.ElectronStore.set('servers', this.servers);
 
     },
 
