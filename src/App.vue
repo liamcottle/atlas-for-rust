@@ -39,6 +39,7 @@
 
           <!-- fcm status -->
           <div class="text-xs">FCM Status: {{ fcmStatus }}</div>
+          <div class="text-xs">Expo Status: {{ expoStatus }}</div>
 
         </div>
 
@@ -86,6 +87,7 @@ export default {
       selectedServer: null,
 
       fcmStatus: "Not Ready",
+      expoStatus: "Not Ready",
 
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
@@ -130,7 +132,36 @@ export default {
     });
 
     fcmNotificationReceiver.on('notifications.listen.started', (data) => {
+
+      // update fcm status
       this.fcmStatus = "Listening";
+
+      const { v4: uuidv4 } = require('uuid');
+
+      // get and update expo device id
+      var deviceId = window.ElectronStore.get('expo_device_id', uuidv4());
+      window.ElectronStore.set('expo_device_id', deviceId);
+
+      // get or generate expo data
+      var experienceId = '@facepunch/RustCompanion';
+      var appId = 'com.facepunch.rust.companion';
+      var fcmToken = window.ElectronStore.get('fcm_credentials').fcm.token;
+
+      var expoPushTokenReceiver = new window.ExpoPushTokenReceiver(window.ipcRenderer);
+
+      expoPushTokenReceiver.on('register.success', (data) => {
+        this.expoStatus = "Registered";
+        console.log(data);
+      });
+
+      expoPushTokenReceiver.on('register.error', (data) => {
+        this.expoStatus = "Error: " + data.error;
+      });
+
+      // register expo token
+      this.expoStatus = "Registering";
+      expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
+
     });
 
     fcmNotificationReceiver.on('notifications.listen.stopped', (data) => {
