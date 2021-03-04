@@ -15,5 +15,11 @@ npm run serve
 npm run build
 ```
 
+### Run as Electron App
+
+```
+npm run electron
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
