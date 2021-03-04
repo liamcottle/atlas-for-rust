@@ -12,7 +12,7 @@
         </div>
 
         <!-- Right Side -->
-        <div class="flex-grow h-full">
+        <div class="flex-grow h-full overflow-y-scroll">
 
           <!-- User has selected a Server -->
           <RustPlus v-if="selectedServer" :server="selectedServer"/>

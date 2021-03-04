@@ -93,8 +93,10 @@ export default {
       playerToken: null,
     }
   },
-  mounted: async function () {
-    this.playerId = this.steamId;
+  watch: {
+    steamId: function() {
+      this.playerId = this.steamId;
+    },
   },
   methods: {
     add: function() {
@@ -117,7 +119,16 @@ export default {
 
     },
     close: function() {
+
+      // clear modal inputs
+      this.ip = null;
+      this.port = null;
+      this.playerId = this.steamId;
+      this.playerToken = null;
+
+      // emit close event
       this.$emit('close');
+
     },
   },
 }
