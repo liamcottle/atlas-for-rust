@@ -5,6 +5,7 @@ const BrowserWindow = electron.BrowserWindow;
 const Store = require('electron-store');
 const ExpoPushTokenManager = require('./src/ipc/main/ExpoPushTokenManager');
 const FCMNotificationManager = require('./src/ipc/main/FCMNotificationManager');
+const RustCompanionManager = require('./src/ipc/main/RustCompanionManager');
 const querystring = require('querystring');
 
 // setup electron store
@@ -13,6 +14,7 @@ Store.initRenderer();
 // init ipc managers
 let expoPushTokenManager = new ExpoPushTokenManager(ipcMain);
 let fcmNotificationManager = new FCMNotificationManager(ipcMain);
+let rustCompanionManager = new RustCompanionManager(ipcMain);
 
 // init ipc callback to auth with steam and rust+ companion
 ipcMain.on('connect-with-steam', (ipcEvent, data) => {

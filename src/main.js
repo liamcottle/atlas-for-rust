@@ -6,6 +6,7 @@ window.Long = require('long');
 window.Protobuf = require('protobufjs');
 window.ExpoPushTokenReceiver = require('./ipc/renderer/ExpoPushTokenReceiver');
 window.FCMNotificationReceiver = require('./ipc/renderer/FCMNotificationReceiver');
+window.RustCompanionReceiver = require('./ipc/renderer/RustCompanionReceiver');
 
 // configure long support for protobufjs
 window.Protobuf.util.Long = window.Long;

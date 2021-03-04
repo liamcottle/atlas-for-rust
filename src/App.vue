@@ -40,6 +40,7 @@
           <!-- fcm status -->
           <div class="text-xs">FCM Status: {{ fcmStatus }}</div>
           <div class="text-xs">Expo Status: {{ expoStatus }}</div>
+          <div class="text-xs">Companion Push Status: {{ companionPushStatus }}</div>
 
         </div>
 
@@ -88,6 +89,7 @@ export default {
 
       fcmStatus: "Not Ready",
       expoStatus: "Not Ready",
+      companionPushStatus: "Not Ready",
 
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
@@ -150,8 +152,24 @@ export default {
       var expoPushTokenReceiver = new window.ExpoPushTokenReceiver(window.ipcRenderer);
 
       expoPushTokenReceiver.on('register.success', (data) => {
+
+        // update expo status
         this.expoStatus = "Registered";
-        console.log(data);
+
+        var rustCompanionReceiver = new window.RustCompanionReceiver(window.ipcRenderer);
+
+        rustCompanionReceiver.on('register.success', (data) => {
+          this.companionPushStatus = "Registered";
+        });
+
+        rustCompanionReceiver.on('register.error', (data) => {
+          this.companionPushStatus = "Error: " + data.error;
+        });
+
+        // register with rust companion api
+        this.companionPushStatus = "Registering...";
+        rustCompanionReceiver.register(window.ElectronStore.get('steam_token'), data.expoPushToken);
+
       });
 
       expoPushTokenReceiver.on('register.error', (data) => {
@@ -159,7 +177,7 @@ export default {
       });
 
       // register expo token
-      this.expoStatus = "Registering";
+      this.expoStatus = "Registering...";
       expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
 
     });
