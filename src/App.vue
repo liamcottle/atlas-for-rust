@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-red-200">
+  <div id="app">
 
     <!-- Steam is Connected -->
     <template v-if="isSteamConnected">
