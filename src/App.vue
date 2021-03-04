@@ -11,7 +11,7 @@
 
           <!-- Steam Account Button -->
           <div class="flex-none flex py-4 bg-black">
-            <img :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
+            <img @click="isShowingLogoutModal = true" :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
           </div>
 
           <!-- Server Side Panel -->
@@ -39,12 +39,14 @@
 
     <!-- Modals -->
     <AddServerModal @add="onAddServer($event)" @close="isShowingAddServerModal = false" :isShowing="isShowingAddServerModal" :steamId="steamId"/>
+    <LogoutModal @close="isShowingLogoutModal = false" @logout="logout" :isShowing="isShowingLogoutModal"/>
 
   </div>
 </template>
 
 <script>
 import AddServerModal from "@/components/modals/AddServerModal";
+import LogoutModal from "@/components/modals/LogoutModal";
 import ConnectSteamAccount from './components/ConnectSteamAccount.vue'
 import ServerSidePanel from './components/ServerSidePanel.vue'
 import RustPlus from './components/RustPlus.vue'
@@ -53,6 +55,7 @@ import NoServerSelected from './components/NoServerSelected.vue'
 export default {
   name: 'App',
   components: {
+    LogoutModal,
     AddServerModal,
     ConnectSteamAccount,
     ServerSidePanel,
@@ -69,6 +72,7 @@ export default {
       selectedServer: null,
 
       isShowingAddServerModal: false,
+      isShowingLogoutModal: false,
 
     };
   },
@@ -88,6 +92,25 @@ export default {
 
   },
   methods: {
+
+    logout() {
+
+      // close logout modal
+      this.isShowingLogoutModal = false;
+
+      // forget servers
+      window.ElectronStore.delete('servers');
+
+      // forget steam account
+      window.ElectronStore.delete('steam_id');
+      window.ElectronStore.delete('steam_token');
+
+      // clear in memory state, which will force user to connect steam
+      this.servers = [];
+      this.steamId = null;
+      this.steamToken = null;
+
+    },
 
     onSteamConnected(event) {
 
