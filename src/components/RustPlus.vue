@@ -463,7 +463,35 @@ export default {
 
   },
   watch: {
+    server: function() {
+
+      // disconnect from current server when new server is selected
+      this.disconnect();
+
+      // clear cached data
+      this.info = null;
+      this.teamInfo = null;
+      this.map = null;
+      this.mapMarkers = null;
+
+      // clear processed rust data
+      this.rustMapImageUrl = null;
+      this.rustMapImageBounds = null;
+      this.rustMapImageColour = null;
+      this.rustMonuments = [];
+      this.rustMapMarkers = [];
+      this.rustTeamMembers = [];
+
+      // set status to none, so old server map is not shown
+      this.status = 'none';
+
+    },
     info: function() {
+
+      // make sure data exists
+      if(!this.info){
+        return;
+      }
 
       // update server name in memory
       this.server.name = this.info.name;
@@ -485,6 +513,11 @@ export default {
 
     },
     map: function() {
+
+      // make sure data exists
+      if(!this.map){
+        return;
+      }
 
       // update map data
       this.rustMapImageColour = this.map.background;
@@ -508,11 +541,21 @@ export default {
     },
     mapMarkers: function() {
 
+      // make sure data exists
+      if(!this.mapMarkers){
+        return;
+      }
+
       // update map markers
       this.rustMapMarkers = this.mapMarkers.markers;
 
     },
     teamInfo: function() {
+
+      // make sure data exists
+      if(!this.teamInfo){
+        return;
+      }
 
       // update team members
       this.rustTeamMembers = this.teamInfo.members.map((teamMember) => {
