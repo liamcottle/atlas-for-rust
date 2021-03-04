@@ -1,15 +1,34 @@
 <template>
   <div class="h-full flex flex-col">
 
-    <div class="flex-none" style="background:#cccccc;padding:0.5rem;">
-      <input v-model="ip" type="text" placeholder="IP"/>
-      <input v-model="port" type="text" placeholder="Port"/>
-      <input v-model="playerId" type="text" placeholder="Player ID"/>
-      <input v-model="playerToken" type="text" placeholder="Player Token"/>
-      <button v-if="status !== 'connected'" @click="connect" type="button">Connect</button>
-      <button v-if="status === 'connected'" @click="reload" type="button">Refresh</button>
-      <button v-if="status === 'connected'" @click="disconnect" type="button">Disconnect</button>
-      <span>Status: {{ status }}</span>
+    <div class="flex-none flex" style="background:#cccccc;padding:0.5rem;">
+
+      <div class="flex-1 mx-2">
+        <div class="text-md font-bold">{{server.name}}</div>
+        <div class="text-sm">{{server.ip}}:{{server.port}}</div>
+      </div>
+
+      <div class="flex-none flex">
+
+        <!-- refresh button -->
+        <button v-if="status === 'connected'" @click="reload" type="button" class="mr-2 my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+        </button>
+
+        <!-- connect button -->
+        <button v-if="status !== 'connected'" @click="connect" type="button" class="my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+          Connect
+        </button>
+
+        <!-- disconnect button -->
+        <button v-if="status === 'connected'" @click="disconnect" type="button" class="my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none">
+          Disconnect
+        </button>
+
+      </div>
+
     </div>
 
     <l-map ref="map"
@@ -110,6 +129,9 @@ export default {
     LTooltip,
     LImageOverlay,
   },
+  props: {
+    server: Object,
+  },
   data: function() {
 
     return {
@@ -129,12 +151,6 @@ export default {
       seq: 0,
       seqCallbacks: [],
       websocket: null,
-
-      /* server and player info */
-      ip: null,
-      port: null,
-      playerId: null,
-      playerToken: null,
 
       /* cached data */
       info: null,
@@ -164,12 +180,6 @@ export default {
     }
   },
   mounted: async function () {
-
-    // load cookies
-    this.ip = this.$cookie.get('ip');
-    this.port = this.$cookie.get('port');
-    this.playerId = this.$cookie.get('playerId');
-    this.playerToken = this.$cookie.get('playerToken');
 
     // load protobuf definitions
     this.protospec = await window.Protobuf.load('rustplus.proto');
@@ -244,15 +254,10 @@ export default {
 
     connect: function() {
 
-      // ip and port are required to connect
-      if(!this.ip || !this.port){
-        return;
-      }
-
       this.onConnecting();
 
       // connect to websocket
-      this.websocket = new WebSocket(`ws://${this.ip}:${this.port}`);
+      this.websocket = new WebSocket(`ws://${this.server.ip}:${this.server.port}`);
       this.websocket.binaryType = 'arraybuffer';
 
       // setup websocket event handlers
@@ -313,8 +318,8 @@ export default {
       // create base payload
       let payload = {
         seq: currentSeq,
-        playerId: Long.fromString(this.playerId), // Long.fromString is required to support uint64
-        playerToken: Long.fromString(this.playerToken),
+        playerId: Long.fromString(this.server.playerId), // Long.fromString is required to support uint64
+        playerToken: Long.fromString(this.server.playerToken),
       };
 
       // merge in request data
@@ -434,18 +439,6 @@ export default {
 
   },
   watch: {
-    ip: function() {
-      this.$cookie.set("ip", this.ip, 7);
-    },
-    port: function() {
-      this.$cookie.set("port", this.port, 7);
-    },
-    playerId: function() {
-      this.$cookie.set("playerId", this.playerId, 7);
-    },
-    playerToken: function() {
-      this.$cookie.set("playerToken", this.playerToken, 7);
-    },
     map: function() {
 
       // update map data

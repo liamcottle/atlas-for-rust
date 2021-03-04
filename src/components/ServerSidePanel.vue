@@ -1,15 +1,30 @@
 <template>
   <div class="bg-black p-4 w-full h-full text-center overflow-scroll">
+
+    <!-- server list -->
     <div v-for="server in servers" class="py-2">
-      <div class="inline-flex items-center justify-center h-14 w-14 rounded-full bg-gray-500 shadow">
-        <span class="text-xl font-medium leading-none text-white">{{ server.iconText }}</span>
+      <div @click="onServerSelected(server)" class="inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-500 shadow border-4 cursor-pointer" :class="[isServerSelected(server) ? 'border-green-500' : 'border-transparent']">
+        <span class="text-xl font-medium leading-none text-white">
+          {{ server.name.charAt(0).toUpperCase() }}
+        </span>
       </div>
     </div>
+
+    <!-- add server button -->
+    <div class="py-2">
+      <div @click="onAddServer" class="inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer">
+        <span class="text-xl font-medium leading-none text-gray-800">+</span>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
 export default {
   name: 'ServerSidePanel',
+  props: {
+    selectedServer: Object,
+  },
   data() {
     return {
       servers: [],
@@ -20,18 +35,21 @@ export default {
     // todo load servers
     this.servers = [];
 
-    for(var i=0; i<30; i++){
-
-      this.servers.push({
-        iconText: "S" + i,
-        name: "Server " + i,
-      });
-
-    }
-
   },
   methods: {
-
+    isServerSelected(server) {
+      return this.selectedServer && this.selectedServer.id === server.id;
+    },
+    onAddServer() {
+      this.$emit('server-selected', {
+        server: null,
+      });
+    },
+    onServerSelected(server) {
+      this.$emit('server-selected', {
+        server: server,
+      });
+    },
   },
 }
 </script>
