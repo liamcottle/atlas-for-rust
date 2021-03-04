@@ -23,18 +23,8 @@
 export default {
   name: 'ServerSidePanel',
   props: {
+    servers: Array,
     selectedServer: Object,
-  },
-  data() {
-    return {
-      servers: [],
-    }
-  },
-  mounted: async function () {
-
-    // todo load servers
-    this.servers = [];
-
   },
   methods: {
     isServerSelected(server) {

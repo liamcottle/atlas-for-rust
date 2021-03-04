@@ -15,11 +15,15 @@
             <span class="h-7 sm:h-8 mx-auto text-xl">Add a Rust Server</span>
           </div>
 
-          <div class="pt-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+          <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
             <p>To add a server, open Rust and select "Pair" from the in game menu.</p>
             <p>We will show the server details once you have paired.</p>
             <p>Alternatively, select an already paired server from the side menu.</p>
           </div>
+
+          <button @click="addServerManually" type="button" class="mt-4 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:col-start-1 sm:text-sm">
+            Add Server Manually
+          </button>
 
         </div>
       </div>
@@ -30,5 +34,10 @@
 <script>
 export default {
   name: 'NoServerSelected',
+  methods: {
+    addServerManually: function() {
+      this.$emit('add-server-manually');
+    },
+  },
 }
 </script>
