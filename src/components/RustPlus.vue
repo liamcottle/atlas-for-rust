@@ -1,6 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
 
+    <!-- top bar -->
     <div class="flex-none flex bg-gray-300 p-2">
 
       <div class="flex-1 mx-2">
@@ -31,7 +32,15 @@
 
     </div>
 
-    <l-map ref="map"
+    <!-- server not connected yet -->
+    <div v-if="status === 'none'" class="flex-1">
+      <ServerNotConnected/>
+    </div>
+
+    <!-- map -->
+    <l-map
+        v-else
+        ref="map"
        :crs="mapCRS"
        :zoom="mapZoom"
        :min-zoom="mapMinZoom"
@@ -118,6 +127,7 @@
 
 <script>
 import { LMap, LMarker, LIcon, LPopup, LImageOverlay, LTooltip } from "vue2-leaflet";
+import ServerNotConnected from "@/components/ServerNotConnected";
 
 export default {
   name: 'RustPlus',
@@ -128,6 +138,7 @@ export default {
     LPopup,
     LTooltip,
     LImageOverlay,
+    ServerNotConnected,
   },
   props: {
     server: Object,
