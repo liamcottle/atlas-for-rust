@@ -6,7 +6,10 @@
 
       <div class="flex-1 mx-2 text-white">
         <div class="text-md font-bold">{{server.name}}</div>
-        <div class="text-sm">{{server.ip}}:{{server.port}}</div>
+        <div class="text-sm">
+          <span>{{server.ip}}:{{server.port}}</span>
+          <span v-if="info"> • Players: {{info.players}} / {{info.maxPlayers}}</span>
+        </div>
       </div>
 
       <div class="flex-none flex">
