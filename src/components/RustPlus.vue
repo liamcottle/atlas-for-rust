@@ -9,6 +9,7 @@
         <div class="text-sm">
           <span>{{server.ip}}:{{server.port}}</span>
           <span v-if="info"> • Players: {{info.players}} / {{info.maxPlayers}}</span>
+          <span v-if="info"> • Last Wiped: <timeago :datetime="info.wipeTime * 1000" :auto-update="60"></timeago></span>
         </div>
       </div>
 

@@ -31,6 +31,10 @@ L.Icon.Default.mergeOptions({
 var VueCookie = require('vue-cookie');
 Vue.use(VueCookie);
 
+// add timeago
+import VueTimeago from 'vue-timeago'
+Vue.use(VueTimeago, {});
+
 // render vue app
 new Vue({
   render: h => h(App),
