@@ -18,8 +18,8 @@ let fcmNotificationManager = new FCMNotificationManager(ipcMain);
 ipcMain.on('connect-with-steam', (ipcEvent, data) => {
 
     let authWindow = new BrowserWindow({
-        width: 600,
-        height: 500,
+        width: 800,
+        height: 600,
         frame: true,
         autoHideMenuBar: true
     });
@@ -53,7 +53,7 @@ ipcMain.on('connect-with-steam', (ipcEvent, data) => {
 app.on('ready', () => {
 
     let window = new BrowserWindow({
-        width: 800, height: 600,
+        width: 1200, height: 800,
         webPreferences: {
             contextIsolation: false, // required for preload to work in browser
             preload: __dirname + '/preload.js'
