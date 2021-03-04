@@ -8,12 +8,12 @@
         <div class="max-w-md mx-auto">
 
           <div class="flex">
-            <span class="h-7 sm:h-8 mx-auto text-xl">Get Started</span>
+            <span class="h-7 sm:h-8 mx-auto text-xl">Welcome</span>
           </div>
 
           <div class="divide-y divide-gray-200">
             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-              <p>To get started using RustPlusWeb please connect your Steam Account with Rust+</p>
+              <p>To get started, connect your Steam Account with Rust+ and then pair with a server.</p>
             </div>
           </div>
 
