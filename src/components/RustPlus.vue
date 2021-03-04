@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
 
-    <div class="flex-none flex" style="background:#cccccc;padding:0.5rem;">
+    <div class="flex-none flex bg-gray-300 p-2">
 
       <div class="flex-1 mx-2">
         <div class="text-md font-bold">{{server.name}}</div>
