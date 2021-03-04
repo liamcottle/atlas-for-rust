@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="h-full flex flex-col">
 
-    <div style="background:#cccccc;padding:0.5rem;">
+    <div class="flex-none" style="background:#cccccc;padding:0.5rem;">
       <input v-model="ip" type="text" placeholder="IP"/>
       <input v-model="port" type="text" placeholder="Port"/>
       <input v-model="playerId" type="text" placeholder="Player ID"/>
@@ -17,7 +17,7 @@
        :zoom="mapZoom"
        :min-zoom="mapMinZoom"
        :max-zoom="mapMaxZoom"
-       style="width:100vw;height:100vh;"
+       class="flex-1"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
       <!-- map image -->
