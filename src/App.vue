@@ -71,14 +71,25 @@ export default {
   },
   mounted() {
 
+    // load steam info from store
+    this.steamId = window.ElectronStore.get('steam_id');
+    this.steamToken = window.ElectronStore.get('steam_token');
+
     // todo load servers from database
 
   },
   methods: {
 
     onSteamConnected(event) {
+
+      // save steam info to store
+      window.ElectronStore.set('steam_id', event.steamId);
+      window.ElectronStore.set('steam_token', event.steamToken);
+
+      // update steam id and token in memory
       this.steamId = event.steamId;
       this.steamToken = event.steamToken;
+
     },
 
     onAddServer(event) {

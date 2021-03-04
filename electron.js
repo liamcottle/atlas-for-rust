@@ -2,9 +2,13 @@ const electron = require('electron');
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
+const Store = require('electron-store');
 const ExpoPushTokenManager = require('./src/ipc/main/ExpoPushTokenManager');
 const FCMNotificationManager = require('./src/ipc/main/FCMNotificationManager');
 const querystring = require('querystring');
+
+// setup electron store
+Store.initRenderer();
 
 // init ipc managers
 let expoPushTokenManager = new ExpoPushTokenManager(ipcMain);
