@@ -14,8 +14,9 @@ window.Protobuf.configure();
 // configure vue
 Vue.config.productionTip = false
 
-// import leaflet stylesheet
+// import stylesheets
 import 'leaflet/dist/leaflet.css';
+import './assets/tailwind.css'
 
 // fix default map markers
 delete L.Icon.Default.prototype._getIconUrl
