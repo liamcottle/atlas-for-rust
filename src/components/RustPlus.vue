@@ -28,6 +28,13 @@
           Disconnect
         </button>
 
+        <!-- remove server button -->
+        <button @click="removeServer" type="button" class="mx-2 my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-600 focus:outline-none">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+        </button>
+
       </div>
 
     </div>
@@ -201,6 +208,12 @@ export default {
 
   },
   methods: {
+
+    removeServer: function() {
+      this.$emit('remove-server', {
+        id: this.server.id,
+      });
+    },
 
     onConnecting: function() {
       this.status = "connecting";

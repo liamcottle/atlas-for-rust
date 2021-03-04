@@ -23,7 +23,7 @@
         <div class="flex-grow h-full overflow-y-scroll">
 
           <!-- User has selected a Server -->
-          <RustPlus v-if="selectedServer" :server="selectedServer"/>
+          <RustPlus v-if="selectedServer" :server="selectedServer" @remove-server="confirmRemoveServer($event)"/>
 
           <!-- User hasn't selected a Server -->
           <NoServerSelected v-else @add-server-manually="isShowingAddServerModal = true"/>
@@ -40,6 +40,7 @@
     <!-- Modals -->
     <AddServerModal @add="onAddServer($event)" @close="isShowingAddServerModal = false" :isShowing="isShowingAddServerModal" :steamId="steamId"/>
     <LogoutModal @close="isShowingLogoutModal = false" @logout="logout" :isShowing="isShowingLogoutModal"/>
+    <RemoveServerModal @close="isShowingRemoveServerModal = false" @remove="removeServer" :isShowing="isShowingRemoveServerModal"/>
 
   </div>
 </template>
@@ -47,6 +48,7 @@
 <script>
 import AddServerModal from "@/components/modals/AddServerModal";
 import LogoutModal from "@/components/modals/LogoutModal";
+import RemoveServerModal from "@/components/modals/RemoveServerModal";
 import ConnectSteamAccount from './components/ConnectSteamAccount.vue'
 import ServerSidePanel from './components/ServerSidePanel.vue'
 import RustPlus from './components/RustPlus.vue'
@@ -55,6 +57,7 @@ import NoServerSelected from './components/NoServerSelected.vue'
 export default {
   name: 'App',
   components: {
+    RemoveServerModal,
     LogoutModal,
     AddServerModal,
     ConnectSteamAccount,
@@ -73,6 +76,9 @@ export default {
 
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
+      isShowingRemoveServerModal: false,
+
+      serverToRemoveId: null,
 
     };
   },
@@ -92,6 +98,35 @@ export default {
 
   },
   methods: {
+
+    confirmRemoveServer(event) {
+      this.serverToRemoveId = event.id;
+      this.isShowingRemoveServerModal = true;
+    },
+
+    removeServer() {
+
+      // remove saved server by id
+      var servers = window.ElectronStore.get('servers').filter((server) => {
+        return server.id !== this.serverToRemoveId;
+      });
+
+      // update in memory servers
+      this.servers = servers;
+
+      // update saved servers
+      window.ElectronStore.set('servers', servers);
+
+      // clear server to remove id
+      this.serverToRemoveId = null;
+
+      // close modal
+      this.isShowingRemoveServerModal = false;
+
+      // remove selected server
+      this.selectedServer = null;
+
+    },
 
     logout() {
 
