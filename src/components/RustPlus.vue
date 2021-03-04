@@ -39,9 +39,10 @@
 
     </div>
 
-    <!-- server not connected yet -->
-    <div v-if="status === 'none'" class="flex-1">
-      <ServerNotConnected/>
+    <!-- server status -->
+    <div v-if="status === 'none' || status === 'error'" class="flex-1">
+      <ServerNotConnected v-if="status === 'none'"/>
+      <ServerError v-if="status === 'error'" :error="error"/>
     </div>
 
     <!-- map -->
@@ -135,6 +136,7 @@
 <script>
 import { LMap, LMarker, LIcon, LPopup, LImageOverlay, LTooltip } from "vue2-leaflet";
 import ServerNotConnected from "@/components/ServerNotConnected";
+import ServerError from "@/components/ServerError";
 
 export default {
   name: 'RustPlus',
@@ -146,6 +148,7 @@ export default {
     LTooltip,
     LImageOverlay,
     ServerNotConnected,
+    ServerError,
   },
   props: {
     server: Object,
@@ -155,6 +158,7 @@ export default {
     return {
 
       status: "none",
+      error: null,
 
       /* map config */
       mapZoom: 1,
@@ -223,10 +227,18 @@ export default {
       this.reload();
     },
     onDisconnected: function() {
+
+      // don't update status to disconnected if in error state
+      if(this.status === 'error'){
+        return;
+      }
+
       this.status = "disconnected";
+
     },
-    onError: function() {
+    onError: function(error) {
       this.status = "error";
+      this.error = error;
     },
 
     onMessageReceived: function(message) {
@@ -281,14 +293,21 @@ export default {
       this.onConnecting();
 
       // connect to websocket
-      this.websocket = new WebSocket(`ws://${this.server.ip}:${this.server.port}`);
+      try {
+        this.websocket = new WebSocket(`ws://${this.server.ip}:${this.server.port}`);
+      } catch (error){
+        this.onError(error);
+        return;
+      }
+
       this.websocket.binaryType = 'arraybuffer';
 
       // setup websocket event handlers
       this.websocket.onopen = this.onConnected;
       this.websocket.onclose = this.onDisconnected;
-      this.websocket.onerror = this.onError;
-      this.websocket.onerror = this.onError;
+      this.websocket.onerror = (error) => {
+        this.onError("Websocket Error");
+      };
 
       // handle received messages
       this.websocket.onmessage = (event) => {
