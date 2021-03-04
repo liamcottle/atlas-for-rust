@@ -2,6 +2,7 @@ const electron = require('electron');
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
+const ExpoPushTokenManager = require('./src/ipc/main/ExpoPushTokenManager');
 const FCMNotificationManager = require('./src/ipc/main/FCMNotificationManager');
 
 let url
@@ -13,7 +14,8 @@ if(process.env.NODE_ENV === 'DEV'){
     url = `file://${process.cwd()}/dist/index.html`;
 }
 
-// init fcm notification manager
+// init ipc managers
+let expoPushTokenManager = new ExpoPushTokenManager(ipcMain);
 let fcmNotificationManager = new FCMNotificationManager(ipcMain);
 
 app.on('ready', () => {
