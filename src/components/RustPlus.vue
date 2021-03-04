@@ -60,14 +60,20 @@
           <l-icon :icon-size="[30, 30]" icon-url="/images/map/shop_green.png"></l-icon>
         </template>
 
-        <!-- CH47=4 todo: icon -->
+        <!-- CH47=4 -->
         <template v-if="mapMarker.type === 4">
           <l-tooltip content="CH47"/>
+          <l-icon>
+            <img src="/images/map/chinook_map_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
+          </l-icon>
         </template>
 
-        <!-- CargoShip=5 todo: icon -->
+        <!-- CargoShip=5 -->
         <template v-if="mapMarker.type === 5">
           <l-tooltip content="Cargo Ship"/>
+          <l-icon>
+            <img src="/images/map/cargo_ship_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
+          </l-icon>
         </template>
 
         <!-- Crate=6 -->
