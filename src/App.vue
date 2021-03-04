@@ -109,6 +109,7 @@ export default {
       this.servers = [];
       this.steamId = null;
       this.steamToken = null;
+      this.selectedServer = null;
 
     },
 
