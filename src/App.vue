@@ -3,35 +3,41 @@
 
     <!-- Steam is Connected -->
     <template v-if="isSteamConnected">
+      <div class="h-screen flex flex-col">
 
-      <div class="flex h-screen">
+        <!-- Main -->
+        <div class="flex-grow flex h-full">
 
-        <!-- Left Side -->
-        <div class="flex-none h-full flex flex-col">
+          <!-- Left Side -->
+          <div class="flex-none h-full flex flex-col">
 
-          <!-- Steam Account Button -->
-          <div class="flex-none flex py-4 bg-black">
-            <img @click="isShowingLogoutModal = true" :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
+            <!-- Steam Account Button -->
+            <div class="flex-none flex py-4 bg-black">
+              <img @click="isShowingLogoutModal = true" :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
+            </div>
+
+            <!-- Server Side Panel -->
+            <ServerSidePanel class="flex-grow" :servers="servers" :selectedServer="selectedServer" @server-selected="onServerSelected"/>
+
           </div>
 
-          <!-- Server Side Panel -->
-          <ServerSidePanel class="flex-grow" :servers="servers" :selectedServer="selectedServer" @server-selected="onServerSelected"/>
+          <!-- Right Side -->
+          <div class="flex-grow h-full overflow-y-scroll">
+
+            <!-- User has selected a Server -->
+            <RustPlus v-if="selectedServer" :server="selectedServer" @remove-server="confirmRemoveServer($event)"/>
+
+            <!-- User hasn't selected a Server -->
+            <NoServerSelected v-else @add-server-manually="isShowingAddServerModal = true"/>
+
+          </div>
 
         </div>
 
-        <!-- Right Side -->
-        <div class="flex-grow h-full overflow-y-scroll">
-
-          <!-- User has selected a Server -->
-          <RustPlus v-if="selectedServer" :server="selectedServer" @remove-server="confirmRemoveServer($event)"/>
-
-          <!-- User hasn't selected a Server -->
-          <NoServerSelected v-else @add-server-manually="isShowingAddServerModal = true"/>
-
-        </div>
+        <!-- Bottom Bar -->
+        <div class="flex-none">Bottom Bar</div>
 
       </div>
-
     </template>
 
     <!-- Steam not Connected -->
