@@ -38,7 +38,7 @@ class RustCompanionManager {
         // register with rust companion api
         axios.post('https://companion-rust.facepunch.com:443/api/push/register', {
             AuthToken: data.steamToken,
-            DeviceId: 'RustPlusWeb',
+            DeviceId: '@liamcottle/atlas-for-rust',
             PushKind: 0,
             PushToken: data.expoPushToken,
         }).then((response) => {

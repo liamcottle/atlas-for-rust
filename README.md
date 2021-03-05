@@ -1,4 +1,4 @@
-# rustplus-web
+# Atlas (for Rust)
 
 ## TODO
 

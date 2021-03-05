@@ -1,6 +1,6 @@
 {
-  "name": "rustplus-web",
-  "description": "rustplus-web",
+  "name": "@liamcottle/atlas-for-rust",
+  "description": "Atlas for Rust",
   "version": "0.1.0",
   "author": "Liam Cottle",
   "private": true,
