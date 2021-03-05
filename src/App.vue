@@ -90,6 +90,9 @@ export default {
       fcmStatus: "Not Ready",
       expoStatus: "Not Ready",
       companionPushStatus: "Not Ready",
+      fcmNotificationReceiver: null,
+      expoPushTokenReceiver: null,
+      rustCompanionReceiver: null,
 
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
@@ -113,10 +116,34 @@ export default {
     // load servers from store
     this.servers = window.ElectronStore.get('servers') || [];
 
-    // connect to fcm
-    var fcmNotificationReceiver = new window.FCMNotificationReceiver(window.ipcRenderer);
+    // setup fcm, expo and rust companion receivers
+    this.fcmNotificationReceiver = new window.FCMNotificationReceiver(window.ipcRenderer);
+    this.expoPushTokenReceiver = new window.ExpoPushTokenReceiver(window.ipcRenderer);
+    this.rustCompanionReceiver = new window.RustCompanionReceiver(window.ipcRenderer);
 
-    fcmNotificationReceiver.on('register.success', (data) => {
+    // setup fcm listeners
+    this.fcmNotificationReceiver.on('register.success', this.onFCMRegisterSuccess);
+    this.fcmNotificationReceiver.on('register.error', this.onFCMRegisterError);
+    this.fcmNotificationReceiver.on('notifications.listen.started', this.onFCMNotificationsListenStarted);
+    this.fcmNotificationReceiver.on('notifications.listen.stopped', this.onFCMNotificationsListenStopped);
+    this.fcmNotificationReceiver.on('notifications.received', this.onFCMNotificationsReceived);
+    this.fcmNotificationReceiver.on('notifications.error', this.onFCMNotificationsError);
+
+    // setup expo listeners
+    this.expoPushTokenReceiver.on('register.success', this.onExpoRegisterSuccess);
+    this.expoPushTokenReceiver.on('register.error', this.onExpoRegisterError);
+
+    // setup rust companion listeners
+    this.rustCompanionReceiver.on('register.success', this.onRustCompanionRegisterSuccess);
+    this.rustCompanionReceiver.on('register.error', this.onRustCompanionRegisterError);
+
+    // setup notifications
+    this.setupNotifications();
+
+  },
+  methods: {
+
+    onFCMRegisterSuccess(data) {
 
       // update fcm status
       this.fcmStatus = "Registered";
@@ -125,68 +152,40 @@ export default {
       window.ElectronStore.set('fcm_credentials', data.credentials);
 
       // start listening for notifications
-      fcmNotificationReceiver.startListeningForNotifications(data.credentials, []);
+      this.fcmNotificationReceiver.startListeningForNotifications(data.credentials, []);
 
-    });
+    },
 
-    fcmNotificationReceiver.on('register.error', (data) => {
+    onFCMRegisterError(data) {
       this.fcmStatus = "Error: " + data.error;
-    });
+    },
 
-    fcmNotificationReceiver.on('notifications.listen.started', (data) => {
+    onFCMNotificationsListenStarted(data) {
 
       // update fcm status
       this.fcmStatus = "Listening";
 
+      // get or generate expo device id
       const { v4: uuidv4 } = require('uuid');
-
-      // get and update expo device id
       var deviceId = window.ElectronStore.get('expo_device_id', uuidv4());
       window.ElectronStore.set('expo_device_id', deviceId);
 
-      // get or generate expo data
+      // configure expo data
       var experienceId = '@facepunch/RustCompanion';
       var appId = 'com.facepunch.rust.companion';
       var fcmToken = window.ElectronStore.get('fcm_credentials').fcm.token;
 
-      var expoPushTokenReceiver = new window.ExpoPushTokenReceiver(window.ipcRenderer);
-
-      expoPushTokenReceiver.on('register.success', (data) => {
-
-        // update expo status
-        this.expoStatus = "Registered";
-
-        var rustCompanionReceiver = new window.RustCompanionReceiver(window.ipcRenderer);
-
-        rustCompanionReceiver.on('register.success', (data) => {
-          this.companionPushStatus = "Registered";
-        });
-
-        rustCompanionReceiver.on('register.error', (data) => {
-          this.companionPushStatus = "Error: " + data.error;
-        });
-
-        // register with rust companion api
-        this.companionPushStatus = "Registering...";
-        rustCompanionReceiver.register(window.ElectronStore.get('steam_token'), data.expoPushToken);
-
-      });
-
-      expoPushTokenReceiver.on('register.error', (data) => {
-        this.expoStatus = "Error: " + data.error;
-      });
-
       // register expo token
       this.expoStatus = "Registering...";
-      expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
+      this.expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
 
-    });
+    },
 
-    fcmNotificationReceiver.on('notifications.listen.stopped', (data) => {
+    onFCMNotificationsListenStopped(data) {
       this.fcmStatus = "Stopped Listening";
-    });
+    },
 
-    fcmNotificationReceiver.on('notifications.received', (data) => {
+    onFCMNotificationsReceived(data) {
 
       // save persistent id to store if not already in store
       var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
@@ -195,42 +194,12 @@ export default {
       }
       window.ElectronStore.set('fcm_persistent_ids', persistentIds);
 
-      // handle notification
-      if(data.notification){
-        this.onNotificationReceived(data.notification);
+      // make sure notification exists
+      var notification = data.notification;
+      if(!notification){
+        console.log("notification is null!");
+        return;
       }
-
-    });
-
-    fcmNotificationReceiver.on('notifications.error', (data) => {
-      this.fcmStatus = "Notification Error";
-    });
-
-    // check for existing fcm credentials
-    var credentials = window.ElectronStore.get('fcm_credentials');
-    if(credentials){
-
-      // get persistent ids
-      var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
-
-      // clear saved persistent ids
-      window.ElectronStore.delete('fcm_persistent_ids');
-
-      // start listening for notifications with existing credentials
-      fcmNotificationReceiver.startListeningForNotifications(credentials, persistentIds);
-
-    } else {
-
-      // register for a new set of fcm credentials
-      this.fcmStatus = "Registering...";
-      fcmNotificationReceiver.register('976529667804');
-
-    }
-
-  },
-  methods: {
-
-    onNotificationReceived(notification) {
 
       // make sure notification has data
       if(!notification.data){
@@ -266,6 +235,65 @@ export default {
           playerId: notificationBody.playerId,
           playerToken: notificationBody.playerToken,
         })
+      }
+
+    },
+
+    onFCMNotificationsError(data) {
+      this.fcmStatus = "Notification Error";
+    },
+
+    onExpoRegisterSuccess(data) {
+
+      // update expo status
+      this.expoStatus = "Registered";
+
+      // register with rust companion api if logged into steam
+      if(this.isSteamConnected){
+        this.companionPushStatus = "Registering...";
+        this.rustCompanionReceiver.register(window.ElectronStore.get('steam_token'), data.expoPushToken);
+      } else {
+        this.companionPushStatus = "Steam Account not Connected";
+      }
+
+    },
+
+    onExpoRegisterError(data) {
+      this.expoStatus = "Error: " + data.error;
+    },
+
+    onRustCompanionRegisterSuccess(data) {
+      this.companionPushStatus = "Registered";
+    },
+
+    onRustCompanionRegisterError(data) {
+      this.companionPushStatus = "Error: " + data.error;
+    },
+
+    setupNotifications() {
+
+      // stop listening for notifications if already listening
+      this.fcmNotificationReceiver.stopListeningForNotifications();
+
+      // check for existing fcm credentials
+      var credentials = window.ElectronStore.get('fcm_credentials');
+      if(credentials){
+
+        // get persistent ids
+        var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
+
+        // clear saved persistent ids
+        window.ElectronStore.delete('fcm_persistent_ids');
+
+        // start listening for notifications with existing credentials
+        this.fcmNotificationReceiver.startListeningForNotifications(credentials, persistentIds);
+
+      } else {
+
+        // register for a new set of fcm credentials
+        this.fcmStatus = "Registering...";
+        this.fcmNotificationReceiver.register('976529667804');
+
       }
 
     },
@@ -317,6 +345,9 @@ export default {
       this.steamToken = null;
       this.selectedServer = null;
 
+      // stop listening for notifications
+      this.fcmNotificationReceiver.stopListeningForNotifications();
+
     },
 
     onSteamConnected(event) {
@@ -328,6 +359,9 @@ export default {
       // update steam id and token in memory
       this.steamId = event.steamId;
       this.steamToken = event.steamToken;
+
+      // setup notifications
+      this.setupNotifications();
 
     },
 

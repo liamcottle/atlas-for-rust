@@ -5,6 +5,9 @@ module.exports = {
             builderOptions: {
                 appId: 'com.liamcottle.electron.rustplus',
             },
+            externals: [
+                'push-receiver',
+            ],
         },
     },
 }
