@@ -17,3 +17,9 @@ npm run electron:serve
 ```
 npm run electron:build
 ```
+
+### Build for Mac, Windows and Linux
+
+```
+npm run electron:build -- --mac --win --linux
+```
