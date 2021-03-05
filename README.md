@@ -1,4 +1,4 @@
-# Atlas (for Rust)
+# Atlas for Rust
 
 ## TODO
 
