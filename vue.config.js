@@ -3,7 +3,9 @@ module.exports = {
         electronBuilder: {
             preload: 'src/preload.js',
             builderOptions: {
-                appId: 'com.liamcottle.electron.rustplus',
+                productName: "Atlas for Rust",
+                appId: 'com.liamcottle.electron.atlas-for-rust',
+                artifactName: 'AtlasForRust-${version}-${os}-${arch}.${ext}'
             },
             externals: [
                 'push-receiver',
