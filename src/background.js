@@ -1,12 +1,23 @@
 const electron = require('electron');
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 const app = electron.app;
 const ipcMain = electron.ipcMain;
+const protocol = electron.protocol;
 const BrowserWindow = electron.BrowserWindow;
 const Store = require('electron-store');
-const ExpoPushTokenManager = require('./src/ipc/main/ExpoPushTokenManager');
-const FCMNotificationManager = require('./src/ipc/main/FCMNotificationManager');
-const RustCompanionManager = require('./src/ipc/main/RustCompanionManager');
+const ExpoPushTokenManager = require('./ipc/main/ExpoPushTokenManager');
+const FCMNotificationManager = require('./ipc/main/FCMNotificationManager');
+const RustCompanionManager = require('./ipc/main/RustCompanionManager');
 const querystring = require('querystring');
+
+// Scheme must be registered before the app is ready
+protocol.registerSchemesAsPrivileged([{
+    scheme: 'app',
+    privileges: {
+        secure: true,
+        standard: true,
+    },
+}]);
 
 // setup electron store
 Store.initRenderer();
@@ -62,12 +73,13 @@ app.on('ready', () => {
         },
     });
 
-    if(process.env.NODE_ENV === 'DEV'){
+    if(process.env.WEBPACK_DEV_SERVER_URL){
         // use local server in dev
-        window.loadURL('http://localhost:8080/');
+        window.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     } else {
-        // use dist folder in prod
-        window.loadURL(`file://${process.cwd()}/dist/index.html`);
+        createProtocol('app')
+        // Load the index.html when not in development
+        window.loadURL('app://./index.html')
     }
 
 });

@@ -1,4 +1,10 @@
 module.exports = {
-    // use dist folder in production
-    publicPath: process.env.NODE_ENV === 'production' ? `${process.cwd()}/dist/` : '',
+    pluginOptions: {
+        electronBuilder: {
+            preload: 'src/preload.js',
+            builderOptions: {
+                appId: 'com.liamcottle.electron.rustplus',
+            },
+        },
+    },
 }
