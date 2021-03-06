@@ -2,7 +2,6 @@
 
 ## TODO
 
-- coloured icons for fcm, expo and companion status
 - add name to add server modal
 - show add server modal instead of immediately adding server
 - handle not_found when credentials are wrong when fetching info
