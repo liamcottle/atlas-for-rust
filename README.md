@@ -3,9 +3,6 @@
 ## TODO
 
 - coloured icons for fcm, expo and companion status
-- fix scrollbars on windows
-- choose app name
-- make an app icon
 - add name to add server modal
 - show add server modal instead of immediately adding server
 - handle not_found when credentials are wrong when fetching info
