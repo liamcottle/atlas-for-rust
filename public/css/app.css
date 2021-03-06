@@ -27,6 +27,11 @@ a[href^="ftp://"] {
     user-drag: auto;
 }
 
+/* hide the scrollbar */
+::-webkit-scrollbar {
+    width: 0;
+}
+
 /* remove default styles from leaflet div icons */
 .leaflet-div-icon {
     background: unset !important;
