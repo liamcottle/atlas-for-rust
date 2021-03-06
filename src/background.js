@@ -68,9 +68,16 @@ app.on('ready', () => {
     let window = new BrowserWindow({
         width: 1200, height: 800,
         webPreferences: {
+            enableRemoteModule: true, // get version in about modal
             contextIsolation: false, // required for preload to work in browser
             preload: __dirname + '/preload.js'
         },
+    });
+
+    // open links clicked in main window in external os browser
+    window.webContents.on('new-window', async function(event, url){
+        event.preventDefault();
+        await electron.shell.openExternal(url);
     });
 
     if(process.env.WEBPACK_DEV_SERVER_URL){
