@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
 
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-400 to-gray-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
 
       <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
         <div class="max-w-md mx-auto">
@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <button @click="connectWithSteam" type="button" class="w-full inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">
+          <button @click="connectWithSteam" type="button" class="w-full inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none">
             <span class="mx-auto">Connect with Steam</span>
           </button>
 
