@@ -68,7 +68,7 @@
                 }">
                   <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
                 </svg>
-                <span class="my-auto">FCM Status: {{ fcmStatusMessage }}</span>
+                <span @click="isShowingFcmInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">FCM Status: {{ fcmStatusMessage }}</span>
               </div>
 
               <!-- expo status -->
@@ -80,7 +80,7 @@
                 }">
                   <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
                 </svg>
-                <span class="my-auto">Expo Status: {{ expoStatusMessage }}</span>
+                <span @click="isShowingExpoInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Expo Status: {{ expoStatusMessage }}</span>
               </div>
 
               <!-- companion push status -->
@@ -92,7 +92,7 @@
                 }">
                   <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
                 </svg>
-                <span class="my-auto">Rust+ Status: {{ companionPushStatusMessage }}</span>
+                <span @click="isShowingCompanionPushInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Rust+ Status: {{ companionPushStatusMessage }}</span>
               </div>
 
             </div>
@@ -112,12 +112,16 @@
     <AddServerModal @add="onAddServer($event)" @close="isShowingAddServerModal = false" :isShowing="isShowingAddServerModal" :steamId="steamId"/>
     <LogoutModal @close="isShowingLogoutModal = false" @logout="logout" :isShowing="isShowingLogoutModal"/>
     <RemoveServerModal @close="isShowingRemoveServerModal = false" @remove="removeServer" :isShowing="isShowingRemoveServerModal"/>
+    <InfoModal @close="isShowingFcmInfoModal = false" :isShowing="isShowingFcmInfoModal" title="Firebase Cloud Messaging" message="We need to register with Firebase Cloud Messaging to be able to receive pairing notifications from the Rust+ Companion API."/>
+    <InfoModal @close="isShowingExpoInfoModal = false" :isShowing="isShowingExpoInfoModal" title="Expo Push Token" message="We need to register our Firebase Cloud Messaging token with Expo, so we can send an Expo Push Token to the Rust+ Companion API."/>
+    <InfoModal @close="isShowingCompanionPushInfoModal = false" :isShowing="isShowingCompanionPushInfoModal" title="Rust+ Companion API" message="We need to register with the Rust+ Companion API to be able to receive pairing notifications from the in game menus in Rust."/>
 
   </div>
 </template>
 
 <script>
 import AboutModal from "@/components/modals/AboutModal";
+import InfoModal from "@/components/modals/InfoModal";
 import AddServerModal from "@/components/modals/AddServerModal";
 import LogoutModal from "@/components/modals/LogoutModal";
 import RemoveServerModal from "@/components/modals/RemoveServerModal";
@@ -135,6 +139,7 @@ const Status = {
 export default {
   name: 'App',
   components: {
+    InfoModal,
     AboutModal,
     RemoveServerModal,
     LogoutModal,
@@ -169,6 +174,10 @@ export default {
       isShowingAddServerModal: false,
       isShowingLogoutModal: false,
       isShowingRemoveServerModal: false,
+
+      isShowingFcmInfoModal: false,
+      isShowingExpoInfoModal: false,
+      isShowingCompanionPushInfoModal: false,
 
       serverToRemoveId: null,
 
