@@ -412,9 +412,12 @@ export default {
       // generate id for server
       const { v4: uuidv4 } = require('uuid');
 
+      // get or generate server id
+      var id = event.id || uuidv4();
+
       // get server data from event
       var server = {
-        id: event.id || uuidv4(),
+        id: id,
         name: event.name || "New Server",
         ip: event.ip,
         port: event.port,
@@ -422,14 +425,22 @@ export default {
         playerToken: event.playerToken,
       };
 
+      // remove server if it already exists
+      var servers = this.servers.filter((server) => {
+        return server.id !== id;
+      });
+
       // add server
-      this.servers.push(server);
+      servers.push(server);
+
+      // update servers
+      this.servers = servers;
 
       // set server as selected
       this.selectedServer = server;
 
       // update servers in store
-      window.ElectronStore.set('servers', this.servers);
+      window.ElectronStore.set('servers', servers);
 
     },
 
