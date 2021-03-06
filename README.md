@@ -2,6 +2,7 @@
 
 ## TODO
 
+- auto connect to server when clicked in side panel
 - coloured icons for fcm, expo and companion status
 - add name to add server modal
 - show add server modal instead of immediately adding server
