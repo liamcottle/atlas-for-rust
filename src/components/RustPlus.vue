@@ -214,6 +214,12 @@ export default {
     this.AppRequest = this.protospec.lookupType("rustplus.AppRequest");
     this.AppMessage = this.protospec.lookupType("rustplus.AppMessage");
 
+    // connect
+    this.connect();
+
+  },
+  beforeDestroy: function() {
+    this.disconnect();
   },
   methods: {
 
@@ -348,6 +354,7 @@ export default {
     disconnect: function() {
       if(this.websocket){
         this.websocket.close();
+        this.websocket = null;
       }
       this.onDisconnected();
     },
@@ -507,6 +514,11 @@ export default {
 
       // set status to none, so old server map is not shown
       this.status = 'none';
+
+      // connect if server was updated
+      if(this.server){
+        this.connect();
+      }
 
     },
     info: function() {
