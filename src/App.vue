@@ -60,9 +60,40 @@
             <div class="flex-none bg-gray-700 px-4 py-2 text-white">
 
               <!-- fcm status -->
-              <div class="text-xs">FCM Status: {{ fcmStatus }}</div>
-              <div class="text-xs">Expo Status: {{ expoStatus }}</div>
-              <div class="text-xs">Companion Push Status: {{ companionPushStatus }}</div>
+              <div class="flex text-xs">
+                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+                  'text-yellow-500': this.fcmStatus === 'not_ready',
+                  'text-green-500': this.fcmStatus === 'ready',
+                  'text-red-500': this.fcmStatus === 'error',
+                }">
+                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                </svg>
+                <span class="my-auto">FCM Status: {{ fcmStatusMessage }}</span>
+              </div>
+
+              <!-- expo status -->
+              <div class="flex text-xs">
+                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+                  'text-yellow-500': this.expoStatus === 'not_ready',
+                  'text-green-500': this.expoStatus === 'ready',
+                  'text-red-500': this.expoStatus === 'error',
+                }">
+                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                </svg>
+                <span class="my-auto">Expo Status: {{ expoStatusMessage }}</span>
+              </div>
+
+              <!-- companion push status -->
+              <div class="flex text-xs">
+                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+                  'text-yellow-500': this.companionPushStatus === 'not_ready',
+                  'text-green-500': this.companionPushStatus === 'ready',
+                  'text-red-500': this.companionPushStatus === 'error',
+                }">
+                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                </svg>
+                <span class="my-auto">Rust+ Status: {{ companionPushStatusMessage }}</span>
+              </div>
 
             </div>
 
@@ -95,6 +126,12 @@ import ServerSidePanel from './components/ServerSidePanel.vue'
 import RustPlus from './components/RustPlus.vue'
 import NoServerSelected from './components/NoServerSelected.vue'
 
+const Status = {
+  NOT_READY: "not_ready",
+  READY: "ready",
+  ERROR: "error",
+}
+
 export default {
   name: 'App',
   components: {
@@ -116,9 +153,14 @@ export default {
       servers: [],
       selectedServer: null,
 
-      fcmStatus: "Not Ready",
-      expoStatus: "Not Ready",
-      companionPushStatus: "Not Ready",
+      fcmStatus: Status.NOT_READY,
+      expoStatus: Status.NOT_READY,
+      companionPushStatus: Status.NOT_READY,
+
+      fcmStatusMessage: "Not Ready",
+      expoStatusMessage: "Not Ready",
+      companionPushStatusMessage: "Not Ready",
+
       fcmNotificationReceiver: null,
       expoPushTokenReceiver: null,
       rustCompanionReceiver: null,
@@ -176,7 +218,8 @@ export default {
     onFCMRegisterSuccess(data) {
 
       // update fcm status
-      this.fcmStatus = "Registered";
+      this.fcmStatus = Status.NOT_READY;
+      this.fcmStatusMessage = "Registered";
 
       // save fcm credentials to store
       window.ElectronStore.set('fcm_credentials', data.credentials);
@@ -187,13 +230,15 @@ export default {
     },
 
     onFCMRegisterError(data) {
-      this.fcmStatus = "Error: " + data.error;
+      this.fcmStatus = Status.ERROR;
+      this.fcmStatusMessage = data.error;
     },
 
     onFCMNotificationsListenStarted(data) {
 
       // update fcm status
-      this.fcmStatus = "Listening";
+      this.fcmStatus = Status.READY;
+      this.fcmStatusMessage = "Listening";
 
       // get or generate expo device id
       const { v4: uuidv4 } = require('uuid');
@@ -206,13 +251,15 @@ export default {
       var fcmToken = window.ElectronStore.get('fcm_credentials').fcm.token;
 
       // register expo token
-      this.expoStatus = "Registering...";
+      this.expoStatus = Status.NOT_READY;
+      this.expoStatusMessage = "Registering...";
       this.expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
 
     },
 
     onFCMNotificationsListenStopped(data) {
-      this.fcmStatus = "Stopped Listening";
+      this.fcmStatus = Status.NOT_READY;
+      this.fcmStatusMessage = "Stopped Listening";
     },
 
     onFCMNotificationsReceived(data) {
@@ -270,18 +317,21 @@ export default {
     },
 
     onFCMNotificationsError(data) {
-      this.fcmStatus = "Notification Error";
+      this.fcmStatus = Status.ERROR;
+      this.fcmStatusMessage = "Notification Error";
     },
 
     onExpoRegisterSuccess(data) {
 
       // update expo status
-      this.expoStatus = "Registered";
+      this.expoStatus = Status.READY;
+      this.expoStatusMessage = "Registered";
 
       // register with rust companion api if logged into steam
       if(this.isSteamConnected){
 
-        this.companionPushStatus = "Registering...";
+        this.companionPushStatus = Status.NOT_READY;
+        this.companionPushMessage = "Registering...";
 
         /**
          * The Rust Companion API will update the expo token if an existing registration exists for a deviceId.
@@ -295,21 +345,25 @@ export default {
         this.rustCompanionReceiver.register(deviceId, steamToken, data.expoPushToken);
 
       } else {
-        this.companionPushStatus = "Steam Account not Connected";
+        this.companionPushStatus = Status.NOT_READY;
+        this.companionPushMessage = "Steam Account not Connected";
       }
 
     },
 
     onExpoRegisterError(data) {
-      this.expoStatus = "Error: " + data.error;
+      this.expoStatus = Status.ERROR;
+      this.expoStatusMessage = data.error;
     },
 
     onRustCompanionRegisterSuccess(data) {
-      this.companionPushStatus = "Registered";
+      this.companionPushStatus = Status.READY;
+      this.companionPushStatusMessage = "Registered";
     },
 
     onRustCompanionRegisterError(data) {
-      this.companionPushStatus = "Error: " + data.error;
+      this.companionPushStatus = Status.ERROR;
+      this.companionPushStatusMessage = data.error;
     },
 
     setupNotifications() {
