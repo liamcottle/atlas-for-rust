@@ -5,7 +5,13 @@ module.exports = {
             builderOptions: {
                 productName: "Atlas for Rust",
                 appId: 'com.liamcottle.electron.atlas-for-rust',
-                artifactName: 'AtlasForRust-${version}-${os}-${arch}.${ext}'
+                artifactName: 'AtlasForRust-${version}-${os}-${arch}.${ext}',
+                "mac": {
+                    "icon": "./public/icon_rounded.png",
+                },
+                "win": {
+                    "icon": "./public/icon_rounded.png",
+                },
             },
             externals: [
                 'push-receiver',
