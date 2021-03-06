@@ -280,8 +280,20 @@ export default {
 
       // register with rust companion api if logged into steam
       if(this.isSteamConnected){
+
         this.companionPushStatus = "Registering...";
-        this.rustCompanionReceiver.register(window.ElectronStore.get('steam_token'), data.expoPushToken);
+
+        /**
+         * The Rust Companion API will update the expo token if an existing registration exists for a deviceId.
+         * Rust+ uses the device name as the deviceId, so if a user has two devices with same name, it won't work.
+         * So, we will use a unique deviceId per installation so notifications will work across multiple installs.
+         */
+        var expoDeviceId = window.ElectronStore.get('expo_device_id', 'default');
+        var deviceId = '@liamcottle/atlas-for-rust:' + expoDeviceId;
+        var steamToken = window.ElectronStore.get('steam_token');
+
+        this.rustCompanionReceiver.register(deviceId, steamToken, data.expoPushToken);
+
       } else {
         this.companionPushStatus = "Steam Account not Connected";
       }
