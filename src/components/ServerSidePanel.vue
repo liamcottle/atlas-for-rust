@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-800 py-2 px-4 w-full h-full text-center overflow-scroll">
+  <div class="bg-gray-800 py-2 px-4 w-full h-full text-center overflow-y-scroll">
 
     <!-- server list -->
     <div v-for="server in servers" class="py-2 has-tooltip flex">
