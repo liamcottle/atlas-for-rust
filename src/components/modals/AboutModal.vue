@@ -28,10 +28,10 @@
                   <div>by Liam Cottle</div>
                 </div>
                 <p class="text-sm text-gray-500">
-                  Email: <a class="hover:text-gray-600" target="_blank" href="mailto:liam@liamcottle.com">liam@liamcottle.com</a>
+                  Email: <a class="hover:text-gray-700" target="_blank" href="mailto:liam@liamcottle.com">liam@liamcottle.com</a>
                 </p>
                 <p class="text-sm text-gray-500">
-                  Website: <a class="hover:text-gray-600" target="_blank" href="https://liamcottle.com">https://liamcottle.com</a>
+                  Website: <a class="hover:text-gray-700" target="_blank" href="https://liamcottle.com">https://liamcottle.com</a>
                 </p>
               </div>
 
