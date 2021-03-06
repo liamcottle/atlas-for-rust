@@ -294,6 +294,7 @@ export default {
       }
 
     },
+
     onMessageSent: function(message) {
       // don't care
     },
@@ -392,40 +393,48 @@ export default {
 
     reload: function() {
 
-      this.getInfo(); // info is required for map to work as it returns map size
-      this.getMap(); // map must be loaded before team info, since
-      this.getMapMarkers();
-      this.getTeamInfo();
+      this.getInfo(() => {
+
+        // info must be loaded before map
+        this.getMap(() => {
+
+          // map must be loaded before markers and team info
+          this.getMapMarkers();
+          this.getTeamInfo();
+
+        });
+
+      });
 
     },
 
-    getInfo: function() {
+    getInfo: function(callback) {
       this.sendRequest({
         getInfo: {
 
         },
-      });
+      }, callback);
     },
-    getMap: function() {
+    getMap: function(callback) {
       this.sendRequest({
         getMap: {
 
         },
-      });
+      }, callback);
     },
-    getMapMarkers: function() {
+    getMapMarkers: function(callback) {
       this.sendRequest({
         getMapMarkers: {
 
         },
-      });
+      }, callback);
     },
-    getTeamInfo: function() {
+    getTeamInfo: function(callback) {
       this.sendRequest({
         getTeamInfo: {
 
         },
-      });
+      }, callback);
     },
 
     /**
