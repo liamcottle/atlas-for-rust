@@ -413,7 +413,31 @@ export default {
         return;
       }
 
-      this.getInfo(() => {
+      this.getInfo((message) => {
+
+        /**
+         * If we get not_found error when fetching info, our playerToken must be invalid.
+         * So we will disconnect from server, show an error to the user, and prevent any more
+         * requests from being sent to the server.
+         */
+        if(message.response && message.response.error){
+          var appError = message.response.error;
+          if(appError.error === 'not_found'){
+
+            // disconnect from server
+            this.disconnect();
+
+            // show error message to user
+            this.onError("Your player token seems to be invalid. Try pairing with this server again.");
+
+            /**
+             * Tell 'onMessageReceived' that we handled this callback so nothing else handles it.
+             * also, by returning here, we prevent the getMap request from happening below.
+             */
+            return true;
+
+          }
+        }
 
         // info must be loaded before map
         this.getMap(() => {
