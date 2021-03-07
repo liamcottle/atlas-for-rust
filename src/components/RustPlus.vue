@@ -157,11 +157,12 @@ export default {
     server: Object,
   },
   data: function() {
-
     return {
 
       status: "none",
       error: null,
+
+      autoRefreshTimer: null,
 
       /* map config */
       mapZoom: 1,
@@ -235,8 +236,13 @@ export default {
       this.status = "connecting";
     },
     onConnected: function() {
+
       this.status = "connected";
       this.reload();
+
+      // setup auto refresh
+      this.autoRefreshTimer = setInterval(this.reload, 15000);
+
     },
     onDisconnected: function() {
 
@@ -355,11 +361,18 @@ export default {
     },
 
     disconnect: function() {
+
+      if(this.autoRefreshTimer){
+        clearInterval(this.autoRefreshTimer);
+      }
+
       if(this.websocket){
         this.websocket.close();
         this.websocket = null;
       }
+
       this.onDisconnected();
+
     },
 
     sendRequest: function(data, callback) {
@@ -394,6 +407,11 @@ export default {
     },
 
     reload: function() {
+
+      // make sure connected
+      if(this.status !== 'connected'){
+        return;
+      }
 
       this.getInfo(() => {
 
