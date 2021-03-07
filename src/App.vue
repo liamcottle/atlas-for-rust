@@ -110,6 +110,7 @@
     <!-- Modals -->
     <AboutModal @close="isShowingAboutModal = false" :isShowing="isShowingAboutModal"/>
     <AddServerModal @add="onAddServer($event)" @close="isShowingAddServerModal = false" :isShowing="isShowingAddServerModal" :steamId="steamId"/>
+    <PairServerModal @pair="onAddServer($event)" @close="isShowingPairServerModal = false" :isShowing="isShowingPairServerModal" :notification="lastReceivedPairNotification"/>
     <LogoutModal @close="isShowingLogoutModal = false" @logout="logout" :isShowing="isShowingLogoutModal"/>
     <RemoveServerModal @close="isShowingRemoveServerModal = false" @remove="removeServer" :isShowing="isShowingRemoveServerModal"/>
     <InfoModal @close="isShowingFcmInfoModal = false" :isShowing="isShowingFcmInfoModal" title="Firebase Cloud Messaging" message="We need to register with Firebase Cloud Messaging to be able to receive pairing notifications from the Rust+ Companion API."/>
@@ -123,6 +124,7 @@
 import AboutModal from "@/components/modals/AboutModal";
 import InfoModal from "@/components/modals/InfoModal";
 import AddServerModal from "@/components/modals/AddServerModal";
+import PairServerModal from "@/components/modals/PairServerModal";
 import LogoutModal from "@/components/modals/LogoutModal";
 import RemoveServerModal from "@/components/modals/RemoveServerModal";
 import ConnectSteamAccount from './components/ConnectSteamAccount.vue'
@@ -144,6 +146,7 @@ export default {
     RemoveServerModal,
     LogoutModal,
     AddServerModal,
+    PairServerModal,
     ConnectSteamAccount,
     ServerSidePanel,
     RustPlus,
@@ -172,6 +175,7 @@ export default {
 
       isShowingAboutModal: false,
       isShowingAddServerModal: false,
+      isShowingPairServerModal: false,
       isShowingLogoutModal: false,
       isShowingRemoveServerModal: false,
 
@@ -180,6 +184,7 @@ export default {
       isShowingCompanionPushInfoModal: false,
 
       serverToRemoveId: null,
+      lastReceivedPairNotification: null,
 
     };
   },
@@ -313,14 +318,8 @@ export default {
 
       // handle server pairing
       if(notificationBody.type === 'server'){
-        this.onAddServer({
-          id: notificationBody.id,
-          name: notificationBody.name,
-          ip: notificationBody.ip,
-          port: notificationBody.port,
-          playerId: notificationBody.playerId,
-          playerToken: notificationBody.playerToken,
-        })
+        this.lastReceivedPairNotification = notificationBody;
+        this.isShowingPairServerModal = true;
       }
 
     },
