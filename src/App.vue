@@ -57,42 +57,59 @@
             <NoServerSelected v-else @add-server-manually="isShowingAddServerModal = true"/>
 
             <!-- Bottom Bar -->
-            <div class="flex-none bg-gray-700 px-4 py-2 text-white">
+            <div class="flex-none flex bg-gray-700 px-4 py-2 text-white">
 
-              <!-- fcm status -->
-              <div class="flex text-xs">
-                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+              <div class="flex-grow">
+
+                <!-- fcm status -->
+                <div class="flex text-xs">
+                  <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
                   'text-yellow-500': this.fcmStatus === 'not_ready',
                   'text-green-500': this.fcmStatus === 'ready',
                   'text-red-500': this.fcmStatus === 'error',
                 }">
-                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-                <span @click="isShowingFcmInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">FCM Status: {{ fcmStatusMessage }}</span>
-              </div>
+                    <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+                  <span @click="isShowingFcmInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">FCM Status: {{ fcmStatusMessage }}</span>
+                </div>
 
-              <!-- expo status -->
-              <div class="flex text-xs">
-                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+                <!-- expo status -->
+                <div class="flex text-xs">
+                  <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
                   'text-yellow-500': this.expoStatus === 'not_ready',
                   'text-green-500': this.expoStatus === 'ready',
                   'text-red-500': this.expoStatus === 'error',
                 }">
-                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-                <span @click="isShowingExpoInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Expo Status: {{ expoStatusMessage }}</span>
-              </div>
+                    <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+                  <span @click="isShowingExpoInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Expo Status: {{ expoStatusMessage }}</span>
+                </div>
 
-              <!-- companion push status -->
-              <div class="flex text-xs">
-                <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
+                <!-- companion push status -->
+                <div class="flex text-xs">
+                  <svg class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24" :class="{
                   'text-yellow-500': this.companionPushStatus === 'not_ready',
                   'text-green-500': this.companionPushStatus === 'ready',
                   'text-red-500': this.companionPushStatus === 'error',
                 }">
-                  <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                </svg>
-                <span @click="isShowingCompanionPushInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Rust+ Status: {{ companionPushStatusMessage }}</span>
+                    <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                  </svg>
+                  <span @click="isShowingCompanionPushInfoModal = true" class="my-auto cursor-pointer hover:text-gray-300">Rust+ Status: {{ companionPushStatusMessage }}</span>
+                </div>
+
+              </div>
+
+              <div class="flex flex-col text-white text-xs my-auto text-right">
+                <div>Atlas v{{ appversion }}</div>
+                <div class="flex mx-auto">
+                  <div>Developed with</div>
+                  <div class="mx-1 text-red-500">
+                    <svg class="w-4 h-4" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                  </div>
+                  <div>by <a class="hover:text-gray-300" target="_blank" href="https://liamcottle.com">Liam Cottle</a></div>
+                </div>
               </div>
 
             </div>
@@ -154,6 +171,8 @@ export default {
   },
   data: function() {
     return {
+
+      appversion: window.appversion,
 
       steamId: null,
       steamToken: null,
