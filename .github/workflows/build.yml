@@ -28,7 +28,7 @@ jobs:
         run: npm install
 
       - name: Build Electron App
-        run: npm run electron:build -- --win
+        run: npm run electron:build -- --win --publish=never
 
       - name: Get Tag
         id: get_tag
