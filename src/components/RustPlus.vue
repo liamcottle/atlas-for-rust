@@ -172,8 +172,8 @@
     </div>
 
     <!-- vending machine overlay -->
-    <div v-if="status !== 'none' || status !== 'error'" class="p-4 absolute bottom-0 right-0" style="z-index:500;">
-      <VendingMachineContents :vending-machine="selectedVendingMachine"/>
+    <div v-if="status !== 'none' || status !== 'error'" class="px-4 absolute bottom-0 right-0" style="z-index:500;">
+      <VendingMachineContents @close="selectedVendingMachine = null" :vending-machine="selectedVendingMachine"/>
     </div>
 
   </div>

@@ -1,11 +1,22 @@
 <template>
   <Transition name="fade">
-    <div v-if="vendingMachine" class="bg-white rounded shadow text-white" style="background:#000000DD;width:275px;">
+    <div v-if="vendingMachine" class="bg-white rounded-t text-white" style="background:#000000DD;width:275px;">
 
       <!-- name -->
       <div class="flex p-3 bg-gray-700 rounded-t">
-        <img class="my-auto mr-2" src="images/map/vending_machine.png" width="30" height="30"/>
-        <div class="my-auto text-sm">{{ vendingMachine.name }}</div>
+
+        <img class="flex-none my-auto mr-2" src="images/map/vending_machine.png" width="30" height="30"/>
+
+        <div class="flex-grow my-auto text-sm">{{ vendingMachine.name }}</div>
+
+        <div class="flex-none my-auto ml-2">
+          <button @click="$emit('close')" type="button" class="mx-auto inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-gray-700 bg-gray-300 hover:bg-gray-200 focus:outline-none">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
       </div>
 
       <!-- sell orders -->
