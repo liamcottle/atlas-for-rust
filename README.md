@@ -42,7 +42,6 @@
 - Smart Devices
     - Pair with Smart Devices
     - View list of Smart Devices per server
-- GitHub actions for auto building and releasing updates to app
 
 ## Project setup
 
