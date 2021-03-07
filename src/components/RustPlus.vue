@@ -143,11 +143,11 @@
 
     <!-- team members overlay -->
     <div v-if="status !== 'none' || status !== 'error'" class="p-4 absolute left-0 bottom-0 text-white" style="z-index:500;">
-      <div v-if="rustTeamMembers" v-for="teamMember in rustTeamMembers" class="flex text-lg mt-4" :class="{
+      <div v-if="rustTeamMembers" v-for="teamMember in rustTeamMembers" class="flex text-lg mt-4 cursor-pointer" :class="{
           'text-rust-team-member-offline': !teamMember.isOnline,
           'text-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
           'text-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
-        }">
+        }" @click="$refs.map.mapObject.flyTo(getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y), 3);">
 
         <!-- offline -->
         <svg v-if="!teamMember.isOnline" class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24">
