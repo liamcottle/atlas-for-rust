@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col">
+  <div class="w-full h-full flex flex-col relative">
 
     <!-- top bar -->
     <div class="flex-none flex bg-gray-700 p-2">
@@ -51,7 +51,7 @@
 
     <!-- map -->
     <l-map
-        v-else
+        v-if="status !== 'none' || status !== 'error'"
         ref="map"
        :crs="mapCRS"
        :zoom="mapZoom"
@@ -75,11 +75,17 @@
       <!-- team members -->
       <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :zIndexOffset="800" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
         <l-tooltip>
-          {{ teamMember.name }} ({{ teamMember.isOnline ? 'Online' : 'Offline' }})
+          <span>{{ teamMember.name }}</span>
+          <span v-if="!teamMember.isOnline"> (Offline)</span>
+          <span v-if="teamMember.isOnline && teamMember.isAlive"> (Online)</span>
+          <span v-if="teamMember.isOnline && !teamMember.isAlive"> (Dead)</span>
         </l-tooltip>
         <l-icon>
-          <img :src="teamMember.avatarUrl" width="30" height="30" style="border-radius:50%;border:2px solid;background-color:#000000;"
-               :style="{'border-color': teamMember.isOnline ? '#00FF00' : '#CCCCCC'}"/>
+          <img :src="teamMember.avatarUrl" width="30" height="30" class="border-2" style="border-radius:50%;background-color:#000000;" :class="{
+          'border-rust-team-member-offline': !teamMember.isOnline,
+          'border-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
+          'border-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
+        }">
         </l-icon>
       </l-marker>
 
@@ -134,6 +140,36 @@
       </l-marker>
 
     </l-map>
+
+    <!-- team members overlay -->
+    <div v-if="status !== 'none' || status !== 'error'" class="p-4 absolute left-0 bottom-0 text-white" style="z-index:500;">
+      <div v-if="rustTeamMembers" v-for="teamMember in rustTeamMembers" class="flex text-lg mt-4" :class="{
+          'text-rust-team-member-offline': !teamMember.isOnline,
+          'text-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
+          'text-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
+        }">
+
+        <!-- offline -->
+        <svg v-if="!teamMember.isOnline" class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+        </svg>
+
+        <!-- online: alive -->
+        <svg v-if="teamMember.isOnline && teamMember.isAlive" class="my-auto w-3 h-3 mr-1" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+        </svg>
+
+        <!-- online: dead -->
+        <svg v-if="teamMember.isOnline && !teamMember.isAlive" class="my-auto w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+
+        <!-- player name -->
+        <span style="text-shadow:1px 1px #000000;">{{ teamMember.name }}</span>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -665,6 +701,7 @@ export default {
           name: teamMember.name,
           avatarUrl: 'https://companion-rust.facepunch.com/api/avatar/' + teamMember.steamId,
           isOnline: teamMember.isOnline,
+          isAlive: teamMember.isAlive,
           x: teamMember.x,
           y: teamMember.y,
         };
