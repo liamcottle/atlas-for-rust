@@ -19,7 +19,6 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 ## TODO
 
 - handle not_found when credentials are wrong when fetching info
-- handle auto updating map properly, instead of refresh icon
 
 ## Features
 
