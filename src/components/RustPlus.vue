@@ -67,7 +67,6 @@
 
       <!-- monument names -->
       <l-marker v-if="rustMonuments" v-for="(monument, index) in rustMonuments" :zIndexOffset="700" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
-        <l-popup :content="monument.name"/>
         <l-icon class-name="rust-map-monument-text" :iconAnchor="[(5 + (2 * mapZoom)), 7]">
           <span :style="{fontSize: (5 + (2 * mapZoom)) + 'px'}">{{monument.name}}</span>
         </l-icon>
@@ -139,7 +138,7 @@
 </template>
 
 <script>
-import { LMap, LMarker, LIcon, LPopup, LImageOverlay, LTooltip } from "vue2-leaflet";
+import { LMap, LMarker, LIcon, LImageOverlay, LTooltip } from "vue2-leaflet";
 import ServerNotConnected from "@/components/ServerNotConnected";
 import ServerError from "@/components/ServerError";
 
@@ -149,7 +148,6 @@ export default {
     LMap,
     LMarker,
     LIcon,
-    LPopup,
     LTooltip,
     LImageOverlay,
     ServerNotConnected,
