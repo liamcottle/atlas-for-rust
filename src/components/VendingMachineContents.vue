@@ -94,7 +94,7 @@ export default {
     },
     getItemImage(id) {
       var item = this.findItemById(id);
-      return item ? `images/items/${item.name}.png` : null;
+      return item ? `images/items/${item.shortname}.png` : null;
     },
   },
 }
