@@ -43,25 +43,32 @@
     - Pair with Smart Devices
     - View list of Smart Devices per server
 
-## Project setup
+## How to Install
+
+- Download the latest installer from [Releases](https://github.com/liamcottle/atlas-for-rust/releases)
+- After downloading, run `AtlasForRust-x.y.z-win.exe`
+- Connect your Steam Account with Rust+ from the Atlas welcome screen
+- Pair with your Rust server from the in game menu
+
+## How to build for development
+
+Download and Install Dependencies
 
 ```
+git clone https://github.com/liamcottle/atlas-for-rust.git
+cd atlas-for-rust
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Run Electron app for Development
 
 ```
 npm run electron:serve
 ```
 
-### Compiles and minifies for production
-
-```
-npm run electron:build
-```
-
 ### Build for Mac, Windows and Linux
+
+At this stage, GitHub actions only builds and releases Windows versions of Atlas. However, if you want to run Atlas on Mac or Linux, you can use the command below.
 
 ```
 npm run electron:build -- --mac --win --linux
