@@ -63,10 +63,10 @@
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
       <!-- map image -->
-      <l-image-overlay v-if="rustMapImageUrl" :url="rustMapImageUrl" :bounds="rustMapImageBounds"></l-image-overlay>
+      <l-image-overlay v-if="rustMapImageUrl" :zIndexOffset="600" :url="rustMapImageUrl" :bounds="rustMapImageBounds"></l-image-overlay>
 
       <!-- monument names -->
-      <l-marker v-if="rustMonuments" v-for="(monument, index) in rustMonuments" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
+      <l-marker v-if="rustMonuments" v-for="(monument, index) in rustMonuments" :zIndexOffset="700" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
         <l-popup :content="monument.name"/>
         <l-icon class-name="rust-map-monument-text" :iconAnchor="[(5 + (2 * mapZoom)), 7]">
           <span :style="{fontSize: (5 + (2 * mapZoom)) + 'px'}">{{monument.name}}</span>
@@ -74,7 +74,7 @@
       </l-marker>
 
       <!-- team members -->
-      <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
+      <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :zIndexOffset="800" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
         <l-tooltip>
           {{ teamMember.name }} ({{ teamMember.isOnline ? 'Online' : 'Offline' }})
         </l-tooltip>
@@ -85,7 +85,7 @@
       </l-marker>
 
       <!-- map markers -->
-      <l-marker v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
+      <l-marker v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :zIndexOffset="900" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
 
         <!-- Player=1 -->
         <template v-if="mapMarker.type === 1">
