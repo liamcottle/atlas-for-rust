@@ -11,9 +11,11 @@
           <!-- Left Side -->
           <div class="flex-none h-full flex flex-col">
 
-            <!-- Steam Account Button -->
+            <!-- Logo -->
             <div class="flex-none flex py-4 bg-gray-800">
-              <img @click="isShowingLogoutModal = true" :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
+              <a target="_blank" href="https://github.com/liamcottle/atlas-for-rust" class="mx-auto inline-flex items-center justify-center">
+                <img src="icon.png" alt="" class=" h-14 w-14 rounded-md bg-gray-300 shadow"/>
+              </a>
             </div>
 
             <!-- Divider -->
@@ -35,12 +37,17 @@
               </div>
 
               <!-- Logout Button -->
-              <div class="flex">
+              <div class="flex mb-4">
                 <button @click="isShowingLogoutModal = true" type="button" class="mx-auto inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-gray-700 bg-gray-300 hover:bg-gray-200 focus:outline-none">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                   </svg>
                 </button>
+              </div>
+
+              <!-- Steam Account Button -->
+              <div class="flex-none flex bg-gray-800">
+                <img @click="isShowingLogoutModal = true" :src="'https://companion-rust.facepunch.com/api/avatar/' + this.steamId" alt="" class="mx-auto inline-flex items-center justify-center h-14 w-14 rounded-md bg-gray-300 shadow cursor-pointer border-2 border-gray-500 hover:border-gray-400"/>
               </div>
 
             </div>
