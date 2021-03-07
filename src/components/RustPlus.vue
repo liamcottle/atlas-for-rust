@@ -166,9 +166,9 @@ export default {
       error: null,
 
       /* map config */
-      mapZoom: 3,
+      mapZoom: 1,
       mapMinZoom: 1,
-      mapMaxZoom: 5,
+      mapMaxZoom: 6,
       mapCRS: L.CRS.Simple,
       mapOptions: {
         attributionControl: false,
@@ -479,8 +479,8 @@ export default {
       var mapObject = this.$refs.map.mapObject;
 
       // convert x,y to lat,lng
-      var southWest = mapObject.unproject([0, height], mapObject.getMaxZoom());
-      var northEast = mapObject.unproject([width, 0], mapObject.getMaxZoom());
+      var southWest = mapObject.unproject([0, height], mapObject.getMaxZoom() - 3);
+      var northEast = mapObject.unproject([width, 0], mapObject.getMaxZoom() - 3);
 
       // return as latlng bounds
       return new L.LatLngBounds(southWest, northEast);
@@ -500,7 +500,7 @@ export default {
       var mapY = this.worldToMapY(worldY);
 
       // convert x,y to lat,lng for map
-      return mapObject.unproject([mapX, mapY], mapObject.getMaxZoom());
+      return mapObject.unproject([mapX, mapY], mapObject.getMaxZoom() - 3);
 
     },
 
