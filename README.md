@@ -17,7 +17,7 @@
 - handle not_found when credentials are wrong when fetching info
 - handle auto updating map properly, instead of refresh icon
 
-## Current Features
+## Features
 
 - Supports "Pairing" with Rust Servers automatically from in game menu
 - Shows a realtime updating interactive map, including:
@@ -66,7 +66,7 @@ Run Electron app for Development
 npm run electron:serve
 ```
 
-### Build for Mac, Windows and Linux
+## Build for Mac, Windows and Linux
 
 At this stage, GitHub actions only builds and releases Windows versions of Atlas. However, if you want to run Atlas on Mac or Linux, you can use the command below.
 
