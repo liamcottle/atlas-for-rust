@@ -58,6 +58,7 @@
        :min-zoom="mapMinZoom"
        :max-zoom="mapMaxZoom"
        :options="mapOptions"
+       @update:zoom="mapZoomUpdated"
        class="flex-1"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
@@ -67,7 +68,9 @@
       <!-- monument names -->
       <l-marker v-if="rustMonuments" v-for="(monument, index) in rustMonuments" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
         <l-popup :content="monument.name"/>
-        <l-icon class-name="rust-map-monument-text">{{monument.name}}</l-icon>
+        <l-icon class-name="rust-map-monument-text" :iconAnchor="[(5 + (2 * mapZoom)), 7]">
+          <span :style="{fontSize: (5 + (2 * mapZoom)) + 'px'}">{{monument.name}}</span>
+        </l-icon>
       </l-marker>
 
       <!-- team members -->
@@ -502,6 +505,10 @@ export default {
       // convert x,y to lat,lng for map
       return mapObject.unproject([mapX, mapY], mapObject.getMaxZoom() - 3);
 
+    },
+
+    mapZoomUpdated(zoom) {
+      this.mapZoom = zoom;
     },
 
   },
