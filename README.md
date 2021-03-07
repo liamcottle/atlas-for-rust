@@ -14,7 +14,6 @@
 
 ## TODO
 
-- add name to add server modal
 - handle not_found when credentials are wrong when fetching info
 - handle auto updating map properly, instead of refresh icon
 
