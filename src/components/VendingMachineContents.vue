@@ -1,16 +1,16 @@
 <template>
   <Transition name="fade">
-    <div v-if="vendingMachine" class="bg-white rounded shadow text-white" style="background:#000000DD;">
+    <div v-if="vendingMachine" class="bg-white rounded shadow text-white" style="background:#000000DD;width:275px;">
 
       <!-- name -->
-      <div class="flex p-3">
+      <div class="flex p-3 bg-gray-700 rounded-t">
         <img class="my-auto mr-2" src="images/map/vending_machine.png" width="30" height="30"/>
         <div class="my-auto text-sm">{{ vendingMachine.name }}</div>
       </div>
 
       <!-- sell orders -->
       <div class="px-4 overflow-y-scroll" style="height:400px;">
-        <table class="table-auto my-2">
+        <table v-if="vendingMachine.sellOrders.length > 0" class="table-auto my-2 mx-auto">
           <thead>
           <tr>
             <th>Stock</th>
@@ -55,6 +55,14 @@
           </tr>
           </tbody>
         </table>
+        <div v-else class="flex h-full">
+          <div class="mx-auto my-auto">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <div>Vending Machine is Empty</div>
+          </div>
+        </div>
       </div>
 
     </div>
