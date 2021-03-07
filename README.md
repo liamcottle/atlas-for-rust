@@ -37,7 +37,6 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 - Team Chat
     - Send and receive Team Chat messages. (Show as overlay in corner of map)
 - Vending Machine features:
-    - View Contents when clicked
     - Search map for a specific item to see if it's for sale
 - Smart Devices
     - Pair with Smart Devices
