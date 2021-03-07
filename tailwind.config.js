@@ -15,6 +15,8 @@ module.exports = {
       }
     },
     zIndex: {
+      'vending-machine-contents': 998,
+      'bottom-bar': 999,
       'modal': 1000,
       'tooltip': 1001,
       'auto': 'auto',

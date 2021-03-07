@@ -57,7 +57,7 @@
             <NoServerSelected v-else @add-server-manually="isShowingAddServerModal = true"/>
 
             <!-- Bottom Bar -->
-            <div class="flex-none flex bg-gray-700 px-4 py-2 text-white">
+            <div class="flex-none flex bg-gray-700 px-4 py-2 text-white z-bottom-bar">
 
               <div class="flex-grow">
 

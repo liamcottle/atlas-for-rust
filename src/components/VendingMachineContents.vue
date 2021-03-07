@@ -1,6 +1,6 @@
 <template>
-  <Transition name="fade">
-    <div v-if="vendingMachine" class="bg-white rounded-t text-white" style="background:#000000DD;width:275px;">
+  <Transition name="slide-up">
+    <div v-if="vendingMachine" class="bg-white rounded-t text-white z-vending-machine-contents" style="background:#000000DD;width:275px;">
 
       <!-- name -->
       <div class="flex p-3 bg-gray-700 rounded-t">
@@ -81,12 +81,13 @@
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.25s;
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease;
 }
-.fade-enter,
-.fade-leave-to {
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(100vh);
   opacity: 0;
 }
 </style>
