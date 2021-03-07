@@ -58,6 +58,7 @@
        :min-zoom="mapMinZoom"
        :max-zoom="mapMaxZoom"
        :options="mapOptions"
+       @click="onMapClick"
        @update:zoom="mapZoomUpdated"
        class="flex-1"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
@@ -90,7 +91,7 @@
       </l-marker>
 
       <!-- map markers -->
-      <l-marker v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :zIndexOffset="900" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
+      <l-marker @click="onMapMarkerClick(mapMarker)" v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :zIndexOffset="900" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
 
         <!-- Player=1 -->
         <template v-if="mapMarker.type === 1">
@@ -170,6 +171,11 @@
       </div>
     </div>
 
+    <!-- vending machine overlay -->
+    <div v-if="status !== 'none' || status !== 'error'" class="p-4 absolute bottom-0 right-0" style="z-index:500;">
+      <VendingMachineContents :vending-machine="selectedVendingMachine"/>
+    </div>
+
   </div>
 </template>
 
@@ -177,6 +183,7 @@
 import { LMap, LMarker, LIcon, LImageOverlay, LTooltip } from "vue2-leaflet";
 import ServerNotConnected from "@/components/ServerNotConnected";
 import ServerError from "@/components/ServerError";
+import VendingMachineContents from "@/components/VendingMachineContents";
 
 export default {
   name: 'RustPlus',
@@ -188,6 +195,7 @@ export default {
     LImageOverlay,
     ServerNotConnected,
     ServerError,
+    VendingMachineContents,
   },
   props: {
     server: Object,
@@ -242,6 +250,9 @@ export default {
       rustMapMarkers: [],
       rustTeamMembers: [],
 
+      /* selected map markers */
+      selectedVendingMachine: null,
+
     }
   },
   mounted: async function () {
@@ -261,6 +272,19 @@ export default {
     this.disconnect();
   },
   methods: {
+
+    onMapClick: function() {
+      this.selectedVendingMachine = null;
+    },
+
+    onMapMarkerClick: function(mapMarker) {
+
+      // vending machine clicked
+      if(mapMarker.type === 3){
+        this.selectedVendingMachine = mapMarker;
+      }
+
+    },
 
     removeServer: function() {
       this.$emit('remove-server', {
@@ -604,6 +628,9 @@ export default {
       this.rustMonuments = [];
       this.rustMapMarkers = [];
       this.rustTeamMembers = [];
+
+      // clear selected markers
+      this.selectedVendingMachine = null;
 
       // set status to none, so old server map is not shown
       this.status = 'none';
