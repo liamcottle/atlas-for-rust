@@ -130,10 +130,7 @@
           <l-icon :icon-size="[30, 30]" icon-url="images/map/crate.png"></l-icon>
         </template>
 
-        <!-- GenericRadius=7 todo: unsure -->
-        <template v-if="mapMarker.type === 7">
-          <l-popup content="GenericRadius"/>
-        </template>
+        <!-- todo: GenericRadius=7 -->
 
       </l-marker>
 
