@@ -42,8 +42,6 @@ jobs:
         run: |
           ARTIFACT_PATHNAME=$(ls dist_electron/*.exe | head -n 1)
           ARTIFACT_NAME=$(basename $ARTIFACT_PATHNAME)
-          echo ${ARTIFACT_PATHNAME}
-          echo ${ARTIFACT_NAME}
           echo ::set-output name=ARTIFACT_NAME::${ARTIFACT_NAME}
           echo ::set-output name=ARTIFACT_PATHNAME::${ARTIFACT_PATHNAME}
 
