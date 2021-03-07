@@ -173,8 +173,11 @@
 
     <!-- vending machine overlay -->
     <div v-if="status !== 'none' || status !== 'error'" class="px-4 absolute bottom-0 right-0" style="z-index:500;">
-      <VendingMachineContents @close="selectedVendingMachine = null" :vending-machine="selectedVendingMachine"/>
+      <VendingMachineContents @close="selectedVendingMachine = null" @item-click="onItemClick" :vending-machine="selectedVendingMachine"/>
     </div>
+
+    <!-- modals -->
+    <ItemModal @close="isShowingItemModal = false" :isShowing="isShowingItemModal" :itemId="selectedItemId"/>
 
   </div>
 </template>
@@ -184,6 +187,7 @@ import { LMap, LMarker, LIcon, LImageOverlay, LTooltip } from "vue2-leaflet";
 import ServerNotConnected from "@/components/ServerNotConnected";
 import ServerError from "@/components/ServerError";
 import VendingMachineContents from "@/components/VendingMachineContents";
+import ItemModal from "@/components/modals/ItemModal";
 
 export default {
   name: 'RustPlus',
@@ -196,6 +200,7 @@ export default {
     ServerNotConnected,
     ServerError,
     VendingMachineContents,
+    ItemModal,
   },
   props: {
     server: Object,
@@ -250,8 +255,11 @@ export default {
       rustMapMarkers: [],
       rustTeamMembers: [],
 
+      isShowingItemModal: false,
+
       /* selected map markers */
       selectedVendingMachine: null,
+      selectedItemId: null,
 
     }
   },
@@ -275,6 +283,11 @@ export default {
 
     onMapClick: function() {
       this.selectedVendingMachine = null;
+    },
+
+    onItemClick: function(id) {
+      this.selectedItemId = id;
+      this.isShowingItemModal = true;
     },
 
     onMapMarkerClick: function(mapMarker) {

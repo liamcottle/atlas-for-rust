@@ -43,7 +43,7 @@
 
             <!-- item for sale -->
             <td class="p-2">
-              <div class="flex rounded p-2 relative" style="background:#CCCCCC66;">
+              <div @click="onItemClick(sellOrder.itemId)" class="flex rounded p-2 relative cursor-pointer" style="background:#CCCCCC66;">
                 <div class="relative">
                   <img v-if="sellOrder.itemIsBlueprint" class="absolute" src="images/blueprint.png" width="50" height="50"/>
                   <img class="relative" :src="getItemImage(sellOrder.itemId) || 'images/unknown_item.png'" width="50" height="50" onerror="this.src = 'images/unknown_item.png';"/>
@@ -54,7 +54,7 @@
 
             <!-- currency item -->
             <td class="p-2">
-              <div class="flex rounded p-2 relative" style="background:#CCCCCC66;">
+              <div @click="onItemClick(sellOrder.currencyId)" class="flex rounded p-2 relative cursor-pointer" style="background:#CCCCCC66;">
                 <div class="relative">
                   <img v-if="sellOrder.currencyIsBlueprint" class="absolute" src="images/blueprint.png" width="50" height="50"/>
                   <img :src="getItemImage(sellOrder.currencyId) || 'images/unknown_item.png'" width="50" height="50" onerror="this.src = 'images/unknown_item.png';"/>
@@ -115,6 +115,9 @@ export default {
     getItemImage(id) {
       var item = this.findItemById(id);
       return item ? `images/items/${item.shortname}.png` : null;
+    },
+    onItemClick(id) {
+      this.$emit('item-click', id);
     },
   },
 }
