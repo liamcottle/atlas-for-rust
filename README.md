@@ -23,17 +23,18 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 
 ## Features
 
-- Supports "Pairing" with Rust Servers automatically from in game menu
 - Shows a realtime updating interactive map, including:
     - Hackable Crates
     - Cargo Ship
     - Chinook
-    - Explosions,
+    - Explosions
     - Vending Machines
     - Team Members
-- Shows realtime server stats: current player count, last wiped
-- You can pair with multiple Rust Servers
-- Rust servers can be added manually without using in game pairing
+- Shows realtime server stats
+    - Current player count
+    - How long since last wipe
+- Supports "Pairing" with Rust Servers from the in game menu
+- Supports adding Rust servers manually without using the in game pairing menu
     - Useful if you run your own server and have access to server files
 
 ## Features to Implement
