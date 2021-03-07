@@ -57,6 +57,7 @@
        :zoom="mapZoom"
        :min-zoom="mapMinZoom"
        :max-zoom="mapMaxZoom"
+       :options="mapOptions"
        class="flex-1"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
@@ -169,6 +170,9 @@ export default {
       mapMinZoom: 1,
       mapMaxZoom: 5,
       mapCRS: L.CRS.Simple,
+      mapOptions: {
+        attributionControl: false,
+      },
 
       /* protobuf */
       protospec: null,
