@@ -63,82 +63,91 @@
        class="flex-1"
        v-bind:style="{ backgroundColor: rustMapImageColour }">
 
+      <!-- layer controls -->
+      <l-control-layers position="topright"></l-control-layers>
+
       <!-- map image -->
       <l-image-overlay v-if="rustMapImageUrl" :zIndexOffset="600" :url="rustMapImageUrl" :bounds="rustMapImageBounds"></l-image-overlay>
 
       <!-- monument names -->
-      <l-marker v-if="rustMonuments" v-for="(monument, index) in rustMonuments" :zIndexOffset="700" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
-        <l-icon class-name="rust-map-monument-text" :iconAnchor="[(5 + (2 * mapZoom)), 7]">
-          <span :style="{fontSize: (5 + (2 * mapZoom)) + 'px'}">{{monument.name}}</span>
-        </l-icon>
-      </l-marker>
+      <l-layer-group v-if="rustMonuments" layerType="overlay" name="Monuments">
+        <l-marker v-for="(monument, index) in rustMonuments" :zIndexOffset="700" :lat-lng="getLatLngBoundsFromWorldXY(monument.x, monument.y)" :key="'monument:' + index">
+          <l-icon class-name="rust-map-monument-text" :iconAnchor="[(5 + (2 * mapZoom)), 7]">
+            <span :style="{fontSize: (5 + (2 * mapZoom)) + 'px'}">{{monument.name}}</span>
+          </l-icon>
+        </l-marker>
+      </l-layer-group>
 
       <!-- team members -->
-      <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :zIndexOffset="800" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
-        <l-tooltip>
-          <span>{{ teamMember.name }}</span>
-          <span v-if="!teamMember.isOnline"> (Offline)</span>
-          <span v-if="teamMember.isOnline && teamMember.isAlive"> (Online)</span>
-          <span v-if="teamMember.isOnline && !teamMember.isAlive"> (Dead)</span>
-        </l-tooltip>
-        <l-icon>
-          <img :src="teamMember.avatarUrl" width="30" height="30" class="border-2" style="border-radius:50%;background-color:#000000;" :class="{
-          'border-rust-team-member-offline': !teamMember.isOnline,
-          'border-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
-          'border-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
-        }">
-        </l-icon>
-      </l-marker>
+      <l-layer-group v-if="rustTeamMembers" layerType="overlay" name="Team Members">
+        <l-marker v-if="rustTeamMembers" v-for="(teamMember, index) in rustTeamMembers" :zIndexOffset="800" :lat-lng="getLatLngBoundsFromWorldXY(teamMember.x, teamMember.y)" :key="'team_member:' + index">
+          <l-tooltip>
+            <span>{{ teamMember.name }}</span>
+            <span v-if="!teamMember.isOnline"> (Offline)</span>
+            <span v-if="teamMember.isOnline && teamMember.isAlive"> (Online)</span>
+            <span v-if="teamMember.isOnline && !teamMember.isAlive"> (Dead)</span>
+          </l-tooltip>
+          <l-icon>
+            <img :src="teamMember.avatarUrl" width="30" height="30" class="border-2" style="border-radius:50%;background-color:#000000;" :class="{
+            'border-rust-team-member-offline': !teamMember.isOnline,
+            'border-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
+            'border-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
+          }">
+          </l-icon>
+        </l-marker>
+      </l-layer-group>
 
       <!-- map markers -->
-      <l-marker @click="onMapMarkerClick(mapMarker)" v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :zIndexOffset="900" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
+      <l-layer-group v-if="rustMapMarkers" layerType="overlay" name="Map Markers">
+        <l-marker @click="onMapMarkerClick(mapMarker)" v-if="rustMapMarkers" v-for="(mapMarker, index) in rustMapMarkers" :zIndexOffset="900" :lat-lng="getLatLngBoundsFromWorldXY(mapMarker.x, mapMarker.y)" :key="'map_marker:' + index">
 
-        <!-- Player=1 -->
-        <template v-if="mapMarker.type === 1">
-          <l-tooltip content="Player Marker"/>
-        </template>
+          <!-- Player=1 -->
+          <template v-if="mapMarker.type === 1">
+            <l-tooltip content="Player Marker"/>
+          </template>
 
-        <!-- Explosion=2 -->
-        <template v-if="mapMarker.type === 2">
-          <l-tooltip content="Explosion"/>
-          <l-icon :icon-size="[30, 30]" icon-url="images/map/explosion_marker.png"></l-icon>
-        </template>
+          <!-- Explosion=2 -->
+          <template v-if="mapMarker.type === 2">
+            <l-tooltip content="Explosion"/>
+            <l-icon :icon-size="[30, 30]" icon-url="images/map/explosion_marker.png"></l-icon>
+          </template>
 
-        <!-- VendingMachine=3 -->
-        <template v-if="mapMarker.type === 3">
-          <l-tooltip :content="mapMarker.name"/>
-          <l-icon :icon-size="[30, 30]" icon-url="images/map/shop_green.png"></l-icon>
-        </template>
+          <!-- VendingMachine=3 -->
+          <template v-if="mapMarker.type === 3">
+            <l-tooltip :content="mapMarker.name"/>
+            <l-icon :icon-size="[30, 30]" icon-url="images/map/shop_green.png"></l-icon>
+          </template>
 
-        <!-- CH47=4 -->
-        <template v-if="mapMarker.type === 4">
-          <l-tooltip content="CH47"/>
-          <l-icon>
-            <div style="position:relative" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}">
-              <img src="images/map/chinook_map_body.png" width="30" height="30"/>
-              <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-anticlockwise" style="position: absolute;top:-5px;left:5px;"/> <!-- anti clockwise rotation -->
-              <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-clockwise" style="position: absolute;top:15px;left:5px;"/> <!-- clockwise rotation -->
-            </div>
-          </l-icon>
-        </template>
+          <!-- CH47=4 -->
+          <template v-if="mapMarker.type === 4">
+            <l-tooltip content="CH47"/>
+            <l-icon>
+              <div style="position:relative" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}">
+                <img src="images/map/chinook_map_body.png" width="30" height="30"/>
+                <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-anticlockwise" style="position: absolute;top:-5px;left:5px;"/> <!-- anti clockwise rotation -->
+                <img src="images/map/chinook_map_blades.png" width="20" height="20" class="chinook-blade-spin-clockwise" style="position: absolute;top:15px;left:5px;"/> <!-- clockwise rotation -->
+              </div>
+            </l-icon>
+          </template>
 
-        <!-- CargoShip=5 -->
-        <template v-if="mapMarker.type === 5">
-          <l-tooltip content="Cargo Ship"/>
-          <l-icon>
-            <img src="images/map/cargo_ship_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
-          </l-icon>
-        </template>
+          <!-- CargoShip=5 -->
+          <template v-if="mapMarker.type === 5">
+            <l-tooltip content="Cargo Ship"/>
+            <l-icon>
+              <img src="images/map/cargo_ship_body.png" width="30" height="30" :style="{ transform: 'rotate('+ (-mapMarker.rotation) +'deg)'}"/>
+            </l-icon>
+          </template>
 
-        <!-- Crate=6 -->
-        <template v-if="mapMarker.type === 6">
-          <l-tooltip content="Locked Crate"/>
-          <l-icon :icon-size="[30, 30]" icon-url="images/map/crate.png"></l-icon>
-        </template>
+          <!-- Crate=6 -->
+          <template v-if="mapMarker.type === 6">
+            <l-tooltip content="Locked Crate"/>
+            <l-icon :icon-size="[30, 30]" icon-url="images/map/crate.png"></l-icon>
+          </template>
 
-        <!-- todo: GenericRadius=7 -->
+          <!-- todo: GenericRadius=7 -->
 
-      </l-marker>
+        </l-marker>
+      </l-layer-group>
 
     </l-map>
 
@@ -183,7 +192,7 @@
 </template>
 
 <script>
-import { LMap, LMarker, LIcon, LImageOverlay, LTooltip } from "vue2-leaflet";
+import { LMap, LLayerGroup, LMarker, LIcon, LImageOverlay, LControlLayers, LTooltip } from "vue2-leaflet";
 import ServerNotConnected from "@/components/ServerNotConnected";
 import ServerError from "@/components/ServerError";
 import VendingMachineContents from "@/components/VendingMachineContents";
@@ -193,10 +202,12 @@ export default {
   name: 'RustPlus',
   components: {
     LMap,
+    LLayerGroup,
     LMarker,
     LIcon,
     LTooltip,
     LImageOverlay,
+    LControlLayers,
     ServerNotConnected,
     ServerError,
     VendingMachineContents,
