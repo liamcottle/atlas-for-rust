@@ -34,6 +34,9 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 
 ## Features to Implement
 
+- Map
+    - Show/Hide specific layers/markers from the map
+    - Add custom markers with colour and name to the map
 - Team Chat
     - Send and receive Team Chat messages. (Show as overlay in corner of map)
 - Vending Machine features:
