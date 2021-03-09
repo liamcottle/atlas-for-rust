@@ -42,6 +42,7 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 - Smart Devices
     - Pair with Smart Devices
     - View list of Smart Devices per server
+- Handle expired Rust+ Auth Tokens
 
 ## How to Install
 
