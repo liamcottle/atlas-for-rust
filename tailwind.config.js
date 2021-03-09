@@ -9,6 +9,7 @@ module.exports = {
         primary: colors.blueGray,
         info: colors.gray,
         error: colors.red,
+        'black-semi-transparent': '#000000EE',
         'rust-team-member-online': '#A6EA33',
         'rust-team-member-offline': '#686B6B',
         'rust-team-member-dead': '#CD412B',

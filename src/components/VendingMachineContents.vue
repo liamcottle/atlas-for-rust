@@ -1,9 +1,9 @@
 <template>
   <Transition name="slide-up">
-    <div v-if="vendingMachine" class="bg-white rounded-t text-white z-vending-machine-contents" style="background:#000000DD;width:275px;">
+    <div v-if="vendingMachine" class="bg-white rounded-t text-white z-vending-machine-contents bg-black-semi-transparent" style="width:275px;">
 
       <!-- name -->
-      <div class="flex p-3 bg-gray-700 rounded-t">
+      <div class="flex p-3 bg-gray-600 rounded-t">
 
         <img class="flex-none my-auto mr-2" src="images/map/vending_machine.png" width="30" height="30"/>
 
