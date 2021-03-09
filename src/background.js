@@ -27,8 +27,8 @@ let expoPushTokenManager = new ExpoPushTokenManager(ipcMain);
 let fcmNotificationManager = new FCMNotificationManager(ipcMain);
 let rustCompanionManager = new RustCompanionManager(ipcMain);
 
-// init ipc callback to auth with steam and rust+ companion
-ipcMain.on('connect-with-steam', (ipcEvent, data) => {
+// init ipc callback to auth with rust+
+ipcMain.on('connect-with-rustplus', (ipcEvent, data) => {
 
     let authWindow = new BrowserWindow({
         width: 800,
@@ -47,7 +47,7 @@ ipcMain.on('connect-with-steam', (ipcEvent, data) => {
             let queryParameters = querystring.parse(new URL(urlString).searchParams.toString());
 
             // send steamId and token back to renderer process
-            ipcEvent.sender.send('connect-with-steam.success', {
+            ipcEvent.sender.send('connect-with-rustplus.success', {
                 'steamId': queryParameters.steamId,
                 'token': queryParameters.token,
             });

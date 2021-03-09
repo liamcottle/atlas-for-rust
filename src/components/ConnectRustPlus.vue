@@ -17,12 +17,12 @@
 
           <div class="divide-y divide-gray-200">
             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-              <p>To get started, connect your Steam Account with the official Rust+ Companion API.</p>
-              <p>Once connected, you'll be able to pair with your Rust servers in Atlas.</p>
+              <p>To get started, connect Atlas with the official Rust+ Companion API.</p>
+              <p>Once connected, you'll be able to pair with your Rust servers.</p>
             </div>
           </div>
 
-          <button @click="connectWithSteam" type="button" class="w-full inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none">
+          <button @click="connectWithRustPlus" type="button" class="w-full inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none">
             <span class="flex mx-auto">
 
               <!-- rust icon -->
@@ -70,7 +70,7 @@
 </template>
 <script>
 export default {
-  name: 'ConnectWithSteam',
+  name: 'ConnectRustPlus',
   data() {
     return {
       version: window.appversion,
@@ -78,20 +78,20 @@ export default {
   },
   mounted: async function () {
 
-    // handle steam login callback
-    window.ipcRenderer.on('connect-with-steam.success', (event, data) => {
-      this.onSteamConnected(data.steamId, data.token);
+    // handle rust+ login callback
+    window.ipcRenderer.on('connect-with-rustplus.success', (event, data) => {
+      this.onRustPlusConnected(data.steamId, data.token);
     });
 
   },
   methods: {
-    connectWithSteam: function() {
-      window.ipcRenderer.send('connect-with-steam');
+    connectWithRustPlus: function() {
+      window.ipcRenderer.send('connect-with-rustplus');
     },
-    onSteamConnected(id, token) {
-      this.$emit('steam-connected', {
+    onRustPlusConnected(id, token) {
+      this.$emit('rustplus-connected', {
         steamId: id,
-        steamToken: token,
+        token: token,
       })
     },
   },

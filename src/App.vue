@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- Steam is Connected -->
-    <template v-if="isSteamConnected">
+    <template v-if="isRustPlusConnected">
       <div class="h-screen flex flex-col">
 
         <!-- Main -->
@@ -129,7 +129,7 @@
     </template>
 
     <!-- Steam not Connected -->
-    <ConnectSteamAccount v-else @steam-connected="onSteamConnected($event)"/>
+    <ConnectRustPlus v-else @rustplus-connected="onRustPlusConnected($event)"/>
 
     <!-- Modals -->
     <AboutModal @close="isShowingAboutModal = false" :isShowing="isShowingAboutModal"/>
@@ -151,7 +151,7 @@ import AddServerModal from "@/components/modals/AddServerModal";
 import PairServerModal from "@/components/modals/PairServerModal";
 import LogoutModal from "@/components/modals/LogoutModal";
 import RemoveServerModal from "@/components/modals/RemoveServerModal";
-import ConnectSteamAccount from './components/ConnectSteamAccount.vue'
+import ConnectRustPlus from './components/ConnectRustPlus.vue'
 import ServerSidePanel from './components/ServerSidePanel.vue'
 import RustPlus from './components/RustPlus.vue'
 import NoServerSelected from './components/NoServerSelected.vue'
@@ -171,7 +171,7 @@ export default {
     LogoutModal,
     AddServerModal,
     PairServerModal,
-    ConnectSteamAccount,
+    ConnectRustPlus,
     ServerSidePanel,
     RustPlus,
     NoServerSelected,
@@ -182,7 +182,7 @@ export default {
       appversion: window.appversion,
 
       steamId: null,
-      steamToken: null,
+      rustplusToken: null,
 
       servers: [],
       selectedServer: null,
@@ -215,15 +215,15 @@ export default {
     };
   },
   computed: {
-    isSteamConnected: function () {
-      return this.steamId && this.steamToken;
+    isRustPlusConnected: function () {
+      return this.steamId && this.rustplusToken;
     },
   },
   mounted() {
 
-    // load steam info from store
+    // load rust+ info from store
     this.steamId = window.ElectronStore.get('steam_id');
-    this.steamToken = window.ElectronStore.get('steam_token');
+    this.rustplusToken = window.ElectronStore.get('rustplus_token');
 
     // load servers from store
     this.servers = window.ElectronStore.get('servers') || [];
@@ -362,7 +362,7 @@ export default {
       this.expoStatusMessage = "Registered";
 
       // register with rust companion api if logged into steam
-      if(this.isSteamConnected){
+      if(this.isRustPlusConnected){
 
         this.companionPushStatus = Status.NOT_READY;
         this.companionPushMessage = "Registering...";
@@ -374,9 +374,9 @@ export default {
          */
         var expoDeviceId = window.ElectronStore.get('expo_device_id', 'default');
         var deviceId = '@liamcottle/atlas-for-rust:' + expoDeviceId;
-        var steamToken = window.ElectronStore.get('steam_token');
+        var rustplusToken = window.ElectronStore.get('rustplus_token');
 
-        this.rustCompanionReceiver.register(deviceId, steamToken, data.expoPushToken);
+        this.rustCompanionReceiver.register(deviceId, rustplusToken, data.expoPushToken);
 
       } else {
         this.companionPushStatus = Status.NOT_READY;
@@ -467,12 +467,12 @@ export default {
 
       // forget steam account
       window.ElectronStore.delete('steam_id');
-      window.ElectronStore.delete('steam_token');
+      window.ElectronStore.delete('rustplus_token');
 
       // clear in memory state, which will force user to connect steam
       this.servers = [];
       this.steamId = null;
-      this.steamToken = null;
+      this.rustplusToken = null;
       this.selectedServer = null;
 
       // stop listening for notifications
@@ -480,15 +480,15 @@ export default {
 
     },
 
-    onSteamConnected(event) {
+    onRustPlusConnected(event) {
 
-      // save steam info to store
+      // save rust+ info to store
       window.ElectronStore.set('steam_id', event.steamId);
-      window.ElectronStore.set('steam_token', event.steamToken);
+      window.ElectronStore.set('rustplus_token', event.token);
 
       // update steam id and token in memory
       this.steamId = event.steamId;
-      this.steamToken = event.steamToken;
+      this.rustplusToken = event.token;
 
       // setup notifications
       this.setupNotifications();

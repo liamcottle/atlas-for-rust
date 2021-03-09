@@ -37,10 +37,10 @@ class RustCompanionReceiver extends EventEmitter {
      * - register.success
      * - register.error
      */
-    register(deviceId, steamToken, expoPushToken) {
+    register(deviceId, token, expoPushToken) {
         ipcRenderer.send('rust-companion-api.register', {
             deviceId: deviceId,
-            steamToken: steamToken,
+            token: token,
             expoPushToken: expoPushToken,
         });
     }
