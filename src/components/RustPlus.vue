@@ -394,6 +394,21 @@ export default {
 
     onSendTeamMessage: function() {
 
+      if(this.status !== 'connected'){
+
+        // add error message to team chat messages and scroll to bottom
+        this.rustTeamChatMessages.push({
+          color: "#FF0000",
+          message: "Server is not Connected.",
+          name: "Error",
+        });
+
+        this.scrollTeamChatToBottom();
+
+        return;
+
+      }
+
       // get message to send
       var messageToSend = this.teamChatMessageText;
 
