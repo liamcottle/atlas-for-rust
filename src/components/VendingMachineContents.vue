@@ -5,7 +5,7 @@
       <!-- name -->
       <div class="flex p-3 bg-gray-600 rounded-t">
 
-        <img class="flex-none my-auto mr-2" src="images/map/vending_machine.png" width="30" height="30"/>
+        <img class="flex-none my-auto w-6 h-6 mr-2" src="images/map/shop_green.png"/>
 
         <div class="flex-grow my-auto text-sm">{{ vendingMachine.name }}</div>
 
