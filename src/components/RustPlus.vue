@@ -15,6 +15,12 @@
 
       <div class="flex-none flex">
 
+        <!-- vending machine search button -->
+        <button v-if="status !== 'none' || status !== 'error'" @click="showVendingMachineSearch" type="button" class="mr-2 my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+          <img class="h-4 w-4 mr-2" src="images/map/vending_machine.png"/>
+          <span>Search Vending Machines</span>
+        </button>
+
         <!-- refresh button -->
         <button v-if="status === 'connected'" @click="reload" type="button" class="mr-2 my-auto inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -266,6 +272,11 @@
 
     </div>
 
+    <!-- item search overlay -->
+    <div v-if="status !== 'none' || status !== 'error'" class="px-4 absolute bottom-0 right-0" style="z-index:500;">
+      <VendingMachineSearch @close="isShowingVendingMachineSearch = false" @item-click="onItemClick" @show-vending-machine="$refs.map.mapObject.flyTo(getLatLngBoundsFromWorldXY($event.x, $event.y), 4);" :isShowing="isShowingVendingMachineSearch" :vending-machines="rustVendingMachines"/>
+    </div>
+
     <!-- vending machine overlay -->
     <div v-if="status !== 'none' || status !== 'error'" class="px-4 absolute bottom-0 right-0" style="z-index:500;">
       <VendingMachineContents @close="selectedVendingMachine = null" @item-click="onItemClick" :vending-machine="selectedVendingMachine"/>
@@ -282,6 +293,7 @@ import { LMap, LLayerGroup, LMarker, LIcon, LImageOverlay, LControlLayers, LTool
 import ServerNotConnected from "@/components/ServerNotConnected";
 import ServerError from "@/components/ServerError";
 import VendingMachineContents from "@/components/VendingMachineContents";
+import VendingMachineSearch from "@/components/VendingMachineSearch";
 import ItemModal from "@/components/modals/ItemModal";
 
 export default {
@@ -297,6 +309,7 @@ export default {
     ServerNotConnected,
     ServerError,
     VendingMachineContents,
+    VendingMachineSearch,
     ItemModal,
   },
   props: {
@@ -355,6 +368,7 @@ export default {
       rustTeamChatMessages: [],
 
       isShowingItemModal: false,
+      isShowingVendingMachineSearch: false,
 
       isShowingTeamChat: false,
       teamChatMessageText: null,
@@ -459,8 +473,14 @@ export default {
 
     },
 
+    showVendingMachineSearch: function() {
+      this.selectedVendingMachine = null;
+      this.isShowingVendingMachineSearch = true;
+    },
+
     onMapClick: function() {
       this.selectedVendingMachine = null;
+      this.isShowingVendingMachineSearch = false;
     },
 
     onItemClick: function(id) {
@@ -473,6 +493,7 @@ export default {
       // vending machine clicked
       if(mapMarker.type === 3){
         this.selectedVendingMachine = mapMarker;
+        this.isShowingVendingMachineSearch = false;
       }
 
     },
@@ -849,6 +870,13 @@ export default {
       this.mapZoom = zoom;
     },
 
+  },
+  computed: {
+    rustVendingMachines: function() {
+      return this.rustMapMarkers ? this.rustMapMarkers.filter((mapMarker) => {
+        return mapMarker.type === 3; // VendingMachine=3
+      }) : [];
+    },
   },
   watch: {
     server: function() {
