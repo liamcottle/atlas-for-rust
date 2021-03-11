@@ -29,6 +29,7 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
     - Current player count
     - How long since last wipe
 - Send and Receive realtime Team Chat messages
+- Search items for sale in Vending Machines across the map
 - Supports "Pairing" with Rust Servers from the in game menu
 - Supports adding Rust servers manually without using the in game pairing menu
     - Useful if you run your own server and have access to server files
@@ -37,8 +38,6 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 
 - Map
     - Add custom markers with colour and name to the map
-- Vending Machine features:
-    - Search map for a specific item to see if it's for sale
 - Smart Devices
     - Pair with Smart Devices
     - View list of Smart Devices per server
