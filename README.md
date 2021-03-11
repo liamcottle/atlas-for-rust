@@ -77,3 +77,7 @@ At this stage, GitHub actions only builds and releases Windows versions of Atlas
 ```
 npm run electron:build -- --mac --win --linux
 ```
+
+## Contributing
+
+If you have a feature request, or find a bug with Atlas, please open an issue here on GitHub.
