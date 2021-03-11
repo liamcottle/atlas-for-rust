@@ -1,0 +1,201 @@
+<html style="scroll-behavior: smooth;">
+<head>
+    <title>Atlas for Rust</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="bg-gray-100">
+
+    <!-- header -->
+    <div class="relative py-12">
+
+        <div class="mb-4 mx-auto max-w-7xl px-4 sm:px-6">
+            <div class="text-center">
+                <img class="mx-auto my-4" src="../public/icon_rounded.png" width="100" height="100"/>
+                <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                    <span class="block text-grey-800">Atlas for Rust</span>
+                </h1>
+                <p class="my-4 max-w-md mx-auto text-base text-gray-600 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                    Atlas is an unofficial interactive map experience for Rust
+                </p>
+                <div>
+                    <a href="#features" class="mx-1 my-2 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 sm:w-auto">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Features</span>
+                    </a>
+                    <a href="https://github.com/liamcottle/atlas-for-rust" class="mx-1 my-2 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 sm:w-auto">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        <span>Download on GitHub</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- screenshot -->
+        <div class="max-w-5xl mx-auto px-6">
+            <img class="relative rounded-lg w-100" src="map.png" alt="App screenshot">
+        </div>
+
+    </div>
+
+    <!-- features -->
+    <div id="features" class="relative py-16 bg-white">
+        <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+            <h2 class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                Features
+            </h2>
+            <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
+                Atlas has a range of features, and more are in development!
+            </p>
+            <div class="mt-12">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+                    <!-- live map -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">
+                                    Live Map
+                                </h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    See a live interactive map, including Hackable Crates, Cargo Ship, Chinook, Explosions, Vending Machines and Team Members.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- server statistics -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">
+                                    Server Statistics
+                                </h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    See live server statistics such as current player count and how long since last wipe.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- team chat -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Team Chat</h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Send and receive chat messages with members in your team.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- vending machine search -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">
+                                    Vending Machine Search
+                                </h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Search for items up for sale in Vending Machines across the map.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- rust+ pairing -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">
+                                    Rust+ Pairing
+                                </h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Supports pairing with your Rust servers through the Rust+ in game menu.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- and more -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-100 rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-gray-500 rounded-md shadow-lg">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">and more!</h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    More features are in development! Feel free to send me feature requests.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- download -->
+    <div id="download" class="bg-gray-800">
+        <div class="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-white sm:text-4xl">Download Atlas</h2>
+            <p class="my-4 text-lg leading-6 text-gray-200">Atlas for Rust is free, and open source. If you would like to support my work, please consider donating via the links on GitHub.</p>
+            <a href="https://github.com/liamcottle/atlas-for-rust" class="mx-1 my-2 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-800 bg-white hover:bg-gray-50 sm:w-auto">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                <span>Download on GitHub</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
