@@ -50,7 +50,7 @@ Atlas is an **unofficial** interactive map experience for [Rust](https://rust.fa
 
 - Download the latest installer from [Releases](https://github.com/liamcottle/atlas-for-rust/releases)
 - After downloading, run `AtlasForRust-x.y.z-win.exe`
-- Connect your Steam Account with Rust+ from the Atlas welcome screen
+- Connect with Rust+ from the Atlas welcome screen
 - Pair with your Rust server from the in game menu
 
 ## How to build for development
