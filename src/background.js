@@ -4,7 +4,7 @@ const app = electron.app;
 const ipcMain = electron.ipcMain;
 const protocol = electron.protocol;
 const BrowserWindow = electron.BrowserWindow;
-const Store = require('electron-store');
+const ElectronStore = require('electron-store');
 const ExpoPushTokenManager = require('./ipc/main/ExpoPushTokenManager');
 const FCMNotificationManager = require('./ipc/main/FCMNotificationManager');
 const RustCompanionManager = require('./ipc/main/RustCompanionManager');
@@ -20,7 +20,7 @@ protocol.registerSchemesAsPrivileged([{
 }]);
 
 // setup electron store
-Store.initRenderer();
+ElectronStore.initRenderer();
 
 // init ipc managers
 let expoPushTokenManager = new ExpoPushTokenManager(ipcMain);

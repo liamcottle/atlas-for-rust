@@ -923,20 +923,8 @@ export default {
       // update server name in memory
       this.server.name = this.info.name;
 
-      // get saved servers
-      var servers = window.ElectronStore.get('servers').map((server) => {
-
-        // update name for this server
-        if(server.id === this.server.id){
-          server.name = this.server.name;
-        }
-
-        return server;
-
-      });
-
-      // update saved servers
-      window.ElectronStore.set('servers', servers);
+      // update server
+      window.DataStore.Servers.addOrUpdateServer(this.server);
 
     },
     map: function() {

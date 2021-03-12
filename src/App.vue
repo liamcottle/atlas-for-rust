@@ -226,7 +226,7 @@ export default {
     this.rustplusToken = window.DataStore.Config.getRustPlusToken();
 
     // load servers from store
-    this.servers = window.ElectronStore.get('servers') || [];
+    this.servers = window.DataStore.Servers.getServers();
 
     // setup fcm, expo and rust companion receivers
     this.fcmNotificationReceiver = new window.FCMNotificationReceiver(window.ipcRenderer);
@@ -427,16 +427,11 @@ export default {
 
     removeServer() {
 
-      // remove saved server by id
-      var servers = window.ElectronStore.get('servers').filter((server) => {
-        return server.id !== this.serverToRemoveId;
-      });
+      // remove server by id
+      window.DataStore.Servers.removeServerById(this.serverToRemoveId);
 
       // update in memory servers
-      this.servers = servers;
-
-      // update saved servers
-      window.ElectronStore.set('servers', servers);
+      this.servers = window.DataStore.Servers.getServers();
 
       // clear server to remove id
       this.serverToRemoveId = null;
@@ -455,7 +450,7 @@ export default {
       this.isShowingLogoutModal = false;
 
       // forget servers
-      window.ElectronStore.delete('servers');
+      window.DataStore.Servers.clearServers();
 
       // forget steam account
       window.DataStore.Config.clearSteamId();
@@ -489,15 +484,9 @@ export default {
 
     onAddServer(event) {
 
-      // generate id for server
-      const { v4: uuidv4 } = require('uuid');
-
-      // get or generate server id
-      var id = event.id || uuidv4();
-
       // get server data from event
       var server = {
-        id: id,
+        id: event.id || window.uuidv4(),
         name: event.name || "New Server",
         ip: event.ip,
         port: event.port,
@@ -505,22 +494,14 @@ export default {
         playerToken: event.playerToken,
       };
 
-      // remove server if it already exists
-      var servers = this.servers.filter((server) => {
-        return server.id !== id;
-      });
+      // add or update server
+      window.DataStore.Servers.addOrUpdateServer(server);
 
-      // add server
-      servers.push(server);
-
-      // update servers
-      this.servers = servers;
+      // update servers in ui
+      this.servers = window.DataStore.Servers.getServers();
 
       // set server as selected
       this.selectedServer = server;
-
-      // update servers in store
-      window.ElectronStore.set('servers', servers);
 
     },
 
