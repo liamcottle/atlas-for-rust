@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 
 // add globals
 window.Long = require('long');
 window.Protobuf = require('protobufjs');
-window.ExpoPushTokenReceiver = require('./ipc/renderer/ExpoPushTokenReceiver');
-window.FCMNotificationReceiver = require('./ipc/renderer/FCMNotificationReceiver');
-window.RustCompanionReceiver = require('./ipc/renderer/RustCompanionReceiver');
+window.ExpoPushTokenReceiver = require('@/ipc/renderer/ExpoPushTokenReceiver');
+window.FCMNotificationReceiver = require('@/ipc/renderer/FCMNotificationReceiver');
+window.RustCompanionReceiver = require('@/ipc/renderer/RustCompanionReceiver');
 
 // configure long support for protobufjs
 window.Protobuf.util.Long = window.Long;
@@ -17,7 +17,7 @@ Vue.config.productionTip = false
 
 // import stylesheets
 import 'leaflet/dist/leaflet.css';
-import './assets/tailwind.css'
+import '@/assets/tailwind.css'
 
 // fix default map markers
 delete L.Icon.Default.prototype._getIconUrl

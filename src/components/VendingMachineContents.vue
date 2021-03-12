@@ -106,7 +106,7 @@ export default {
     }
   },
   mounted() {
-    this.items = require('../items.json');
+    this.items = require('@/items.json');
   },
   methods: {
     findItemById(id) {

@@ -151,10 +151,10 @@ import AddServerModal from "@/components/modals/AddServerModal";
 import PairServerModal from "@/components/modals/PairServerModal";
 import LogoutModal from "@/components/modals/LogoutModal";
 import RemoveServerModal from "@/components/modals/RemoveServerModal";
-import ConnectRustPlus from './components/ConnectRustPlus.vue'
-import ServerSidePanel from './components/ServerSidePanel.vue'
-import RustPlus from './components/RustPlus.vue'
-import NoServerSelected from './components/NoServerSelected.vue'
+import ConnectRustPlus from '@/components/ConnectRustPlus.vue'
+import ServerSidePanel from '@/components/ServerSidePanel.vue'
+import RustPlus from '@/components/RustPlus.vue'
+import NoServerSelected from '@/components/NoServerSelected.vue'
 
 const Status = {
   NOT_READY: "not_ready",
