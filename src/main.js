@@ -4,9 +4,9 @@ import App from '@/App.vue'
 // add globals
 window.Long = require('long');
 window.Protobuf = require('protobufjs');
-window.ExpoPushTokenReceiver = require('@/ipc/renderer/ExpoPushTokenReceiver');
-window.FCMNotificationReceiver = require('@/ipc/renderer/FCMNotificationReceiver');
-window.RustCompanionReceiver = require('@/ipc/renderer/RustCompanionReceiver');
+window.ExpoPushTokenReceiver = require('@/js/ipc/renderer/ExpoPushTokenReceiver');
+window.FCMNotificationReceiver = require('@/js/ipc/renderer/FCMNotificationReceiver');
+window.RustCompanionReceiver = require('@/js/ipc/renderer/RustCompanionReceiver');
 
 // configure long support for protobufjs
 window.Protobuf.util.Long = window.Long;

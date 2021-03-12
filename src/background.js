@@ -5,9 +5,9 @@ const ipcMain = electron.ipcMain;
 const protocol = electron.protocol;
 const BrowserWindow = electron.BrowserWindow;
 const ElectronStore = require('electron-store');
-const ExpoPushTokenManager = require('@/ipc/main/ExpoPushTokenManager');
-const FCMNotificationManager = require('@/ipc/main/FCMNotificationManager');
-const RustCompanionManager = require('@/ipc/main/RustCompanionManager');
+const ExpoPushTokenManager = require('@/js/ipc/main/ExpoPushTokenManager');
+const FCMNotificationManager = require('@/js/ipc/main/FCMNotificationManager');
+const RustCompanionManager = require('@/js/ipc/main/RustCompanionManager');
 const querystring = require('querystring');
 
 // Scheme must be registered before the app is ready
