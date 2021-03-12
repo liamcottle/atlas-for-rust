@@ -1,7 +1,9 @@
 const ElectronStore = new (require('electron-store'))();
+const { v4: uuidv4 } = require('uuid');
 
 const KEY_STEAM_ID = 'steam_id';
 const KEY_RUSTPLUS_TOKEN = 'rustplus_token';
+const KEY_EXPO_DEVICE_ID = 'expo_device_id';
 
 class ConfigDataStore {
 
@@ -27,6 +29,28 @@ class ConfigDataStore {
 
     static clearRustPlusToken() {
         ElectronStore.delete(KEY_RUSTPLUS_TOKEN);
+    }
+
+    static getExpoDeviceId() {
+
+        var expoDeviceId = ElectronStore.get(KEY_EXPO_DEVICE_ID);
+
+        // generate an expo device id if not set
+        if(!expoDeviceId){
+            expoDeviceId = uuidv4();
+            this.setExpoDeviceId(expoDeviceId);
+        }
+
+        return expoDeviceId;
+
+    }
+
+    static setExpoDeviceId(expoDeviceId) {
+        ElectronStore.set(KEY_EXPO_DEVICE_ID, expoDeviceId);
+    }
+
+    static clearExpoDeviceId() {
+        ElectronStore.delete(KEY_EXPO_DEVICE_ID);
     }
 
 }

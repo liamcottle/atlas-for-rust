@@ -280,12 +280,8 @@ export default {
       this.fcmStatus = Status.READY;
       this.fcmStatusMessage = "Listening";
 
-      // get or generate expo device id
-      const { v4: uuidv4 } = require('uuid');
-      var deviceId = window.ElectronStore.get('expo_device_id', uuidv4());
-      window.ElectronStore.set('expo_device_id', deviceId);
-
       // configure expo data
+      var deviceId = window.DataStore.Config.getExpoDeviceId();
       var experienceId = '@facepunch/RustCompanion';
       var appId = 'com.facepunch.rust.companion';
       var fcmToken = window.DataStore.FCM.getCredentials().fcm.token;
@@ -368,7 +364,7 @@ export default {
          * Rust+ uses the device name as the deviceId, so if a user has two devices with same name, it won't work.
          * So, we will use a unique deviceId per installation so notifications will work across multiple installs.
          */
-        var expoDeviceId = window.ElectronStore.get('expo_device_id', 'default');
+        var expoDeviceId = window.DataStore.Config.getExpoDeviceId();
         var deviceId = '@liamcottle/atlas-for-rust:' + expoDeviceId;
         var rustplusToken = window.DataStore.Config.getRustPlusToken();
 
