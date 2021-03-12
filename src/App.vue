@@ -262,7 +262,7 @@ export default {
       this.fcmStatusMessage = "Registered";
 
       // save fcm credentials to store
-      window.ElectronStore.set('fcm_credentials', data.credentials);
+      window.DataStore.FCM.setCredentials(data.credentials);
 
       // start listening for notifications
       this.fcmNotificationReceiver.startListeningForNotifications(data.credentials, []);
@@ -288,7 +288,7 @@ export default {
       // configure expo data
       var experienceId = '@facepunch/RustCompanion';
       var appId = 'com.facepunch.rust.companion';
-      var fcmToken = window.ElectronStore.get('fcm_credentials').fcm.token;
+      var fcmToken = window.DataStore.FCM.getCredentials().fcm.token;
 
       // register expo token
       this.expoStatus = Status.NOT_READY;
@@ -304,12 +304,8 @@ export default {
 
     onFCMNotificationsReceived(data) {
 
-      // save persistent id to store if not already in store
-      var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
-      if(persistentIds.indexOf(data.persistentId) === -1){
-        persistentIds.push(data.persistentId);
-      }
-      window.ElectronStore.set('fcm_persistent_ids', persistentIds);
+      // save persistent id to data store
+      window.DataStore.FCM.addPersistentId(data.persistentId);
 
       // make sure notification exists
       var notification = data.notification;
@@ -406,14 +402,14 @@ export default {
       this.fcmNotificationReceiver.stopListeningForNotifications();
 
       // check for existing fcm credentials
-      var credentials = window.ElectronStore.get('fcm_credentials');
+      var credentials = window.DataStore.FCM.getCredentials();
       if(credentials){
 
         // get persistent ids
-        var persistentIds = window.ElectronStore.get('fcm_persistent_ids') || [];
+        var persistentIds = window.DataStore.FCM.getPersistentIds();
 
         // clear saved persistent ids
-        window.ElectronStore.delete('fcm_persistent_ids');
+        window.DataStore.FCM.clearPersistentIds();
 
         // start listening for notifications with existing credentials
         this.fcmNotificationReceiver.startListeningForNotifications(credentials, persistentIds);
