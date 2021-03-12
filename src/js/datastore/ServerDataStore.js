@@ -19,7 +19,7 @@ class ServerDataStore {
 
         // remove server if it already exists
         servers = servers.filter((existingServer) => {
-            return existingServer.id !== id;
+            return existingServer.id !== server.id;
         });
 
         // add new server
