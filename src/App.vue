@@ -222,8 +222,8 @@ export default {
   mounted() {
 
     // load rust+ info from store
-    this.steamId = window.ElectronStore.get('steam_id');
-    this.rustplusToken = window.ElectronStore.get('rustplus_token');
+    this.steamId = window.DataStore.Config.getSteamId();
+    this.rustplusToken = window.DataStore.Config.getRustPlusToken();
 
     // load servers from store
     this.servers = window.ElectronStore.get('servers') || [];
@@ -370,7 +370,7 @@ export default {
          */
         var expoDeviceId = window.ElectronStore.get('expo_device_id', 'default');
         var deviceId = '@liamcottle/atlas-for-rust:' + expoDeviceId;
-        var rustplusToken = window.ElectronStore.get('rustplus_token');
+        var rustplusToken = window.DataStore.Config.getRustPlusToken();
 
         this.rustCompanionReceiver.register(deviceId, rustplusToken, data.expoPushToken);
 
@@ -462,8 +462,8 @@ export default {
       window.ElectronStore.delete('servers');
 
       // forget steam account
-      window.ElectronStore.delete('steam_id');
-      window.ElectronStore.delete('rustplus_token');
+      window.DataStore.Config.clearSteamId();
+      window.DataStore.Config.clearRustPlusToken();
 
       // clear in memory state, which will force user to connect steam
       this.servers = [];
@@ -479,8 +479,8 @@ export default {
     onRustPlusConnected(event) {
 
       // save rust+ info to store
-      window.ElectronStore.set('steam_id', event.steamId);
-      window.ElectronStore.set('rustplus_token', event.token);
+      window.DataStore.Config.setSteamId(event.steamId);
+      window.DataStore.Config.setRustPlusToken(event.token);
 
       // update steam id and token in memory
       this.steamId = event.steamId;

@@ -6,5 +6,6 @@ window.ElectronStore = new (require('electron-store'))();
 
 // add data stores to browser window
 window.DataStore = {
+    Config: require('@/js/datastore/ConfigDataStore'),
     FCM: require('@/js/datastore/FCMDataStore'),
 };
