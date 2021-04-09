@@ -8,7 +8,6 @@ const ElectronStore = require('electron-store');
 const ExpoPushTokenManager = require('@/js/ipc/main/ExpoPushTokenManager');
 const FCMNotificationManager = require('@/js/ipc/main/FCMNotificationManager');
 const RustCompanionManager = require('@/js/ipc/main/RustCompanionManager');
-const querystring = require('querystring');
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{
@@ -34,32 +33,30 @@ ipcMain.on('connect-with-rustplus', (ipcEvent, data) => {
         width: 800,
         height: 600,
         frame: true,
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        webPreferences: {
+            enableRemoteModule: true, // get version in about modal
+            contextIsolation: false, // required for preload to work in browser
+            preload: __dirname + '/preload.js'
+        },
     });
 
-    authWindow.webContents.on('will-redirect', (event, urlString) => {
-        if(urlString.startsWith('http://localhost/rustplus-login-callback')){
+    // listen for ipc callback from ReactNativeWebView.postMessage injected into the rust+ login website
+    ipcMain.on('connect-with-rustplus.react-native-callback', (_, data) => {
 
-            // prevent redirect
-            event.preventDefault();
+        // forward auth data to original ipc caller of 'connect-with-rustplus'
+        ipcEvent.sender.send('connect-with-rustplus.success', {
+            'steamId': data.steamId,
+            'token': data.token,
+        });
 
-            // get query parameters
-            let queryParameters = querystring.parse(new URL(urlString).searchParams.toString());
+        // close auth window
+        authWindow.destroy();
 
-            // send steamId and token back to renderer process
-            ipcEvent.sender.send('connect-with-rustplus.success', {
-                'steamId': queryParameters.steamId,
-                'token': queryParameters.token,
-            });
-
-            // close auth window
-            authWindow.destroy();
-
-        }
     });
 
     // load rust+ companion login page
-    authWindow.loadURL("https://companion-rust.facepunch.com/login?returnUrl=" + encodeURIComponent(`http://localhost/rustplus-login-callback`));
+    authWindow.loadURL("https://companion-rust.facepunch.com/login");
 
 });
 
