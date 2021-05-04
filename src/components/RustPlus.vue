@@ -630,7 +630,8 @@ export default {
 
       // connect to websocket
       try {
-        this.websocket = new WebSocket(`ws://${this.server.ip}:${this.server.port}`);
+        this.protocolVersion = 1601585622782;
+        this.websocket = new WebSocket(`ws://${this.server.ip}:${this.server.port}?v=${this.protocolVersion}`);
       } catch (error){
         this.onError(error);
         return;
