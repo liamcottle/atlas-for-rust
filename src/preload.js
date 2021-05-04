@@ -5,6 +5,7 @@ window.ipcRenderer = electron.ipcRenderer;
 
 // add utils
 window.uuidv4 = require('uuid').v4;
+window.JSONbig = require('json-bigint')({ storeAsString: true });
 
 // add data stores to browser window
 window.DataStore = {
@@ -25,8 +26,8 @@ window.DataStore = {
 window.ReactNativeWebView = {
     postMessage: function(message) {
 
-        // parse auth data
-        var auth = JSON.parse(message);
+        // parse auth data, converting BigInteger steam id to string
+        var auth = JSONbig.parse(message);
 
         // send auth data back to background.js
         window.ipcRenderer.send('connect-with-rustplus.react-native-callback', {

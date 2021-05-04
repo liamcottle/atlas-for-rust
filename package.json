@@ -20,6 +20,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "electron-store": "^7.0.2",
+    "json-bigint": "^1.0.0",
     "leaflet": "^1.7.1",
     "long": "^4.0.0",
     "postcss": "^7",
