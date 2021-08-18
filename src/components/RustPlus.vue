@@ -59,7 +59,7 @@
 
     <!-- map -->
     <l-map
-        v-if="status !== 'none' || status !== 'error'"
+        v-if="status !== 'none' && status !== 'error'"
         ref="map"
        :crs="mapCRS"
        :zoom="mapZoom"
