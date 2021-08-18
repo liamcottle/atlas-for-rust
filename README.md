@@ -78,6 +78,14 @@ At this stage, GitHub actions only builds and releases Windows versions of Atlas
 npm run electron:build -- --mac --win --linux
 ```
 
+## Updating Rust Assets
+
+Atlas uses images and metadata from the Rust game files. These can be updated with the [update_assets.js](./update_assets.js) script.
+
+```shell
+node update_assets.js "<drive>:\SteamLibrary\steamapps\common\Rust"
+```
+
 ## Contributing
 
 If you have a feature request, or find a bug with Atlas, please open an issue here on GitHub.
