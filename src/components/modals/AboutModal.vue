@@ -33,7 +33,7 @@
                   Twitter: <a class="hover:text-gray-700" target="_blank" href="https://twitter.com/liamcottle">@liamcottle</a>
                 </p>
                 <p class="text-sm text-gray-500">
-                  Discord: <a class="hover:text-gray-700" target="_blank" href="https://discord.com/channels/@me">Liam Cottle#0001</a>
+                  Discord: <a class="hover:text-gray-700" target="_blank" href="https://discord.gg/APQSQZNV7t">Liam Cottle#0001</a>
                 </p>
                 <p class="text-sm text-gray-500">
                   Email: <a class="hover:text-gray-700" target="_blank" href="mailto:liam@liamcottle.com">liam@liamcottle.com</a>
