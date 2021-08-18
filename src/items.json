@@ -165,7 +165,7 @@
         "id": 14241751,
         "shortname": "arrow.fire",
         "name": "Fire Arrow",
-        "description": "A fuel soaked arrow, ignite it by aiming into a fire source."
+        "description": "A fuel soaked arrow, ignite it by aiming."
     },
     {
         "id": -1023065463,
@@ -238,6 +238,12 @@
         "shortname": "attire.nesthat",
         "name": "Nest Hat",
         "description": "An extremely silly easter nest hat with googly eyes."
+    },
+    {
+        "id": -1506417026,
+        "shortname": "attire.ninja.suit",
+        "name": "Ninja Suit",
+        "description": "BaboAbe Ninja Suit"
     },
     {
         "id": -324675402,
@@ -438,6 +444,12 @@
         "description": "Use the boogie board to catch some sick waves."
     },
     {
+        "id": -1113501606,
+        "shortname": "boombox",
+        "name": "Boom Box",
+        "description": "A large speaker to play recorded cassette tapes which can also stream audio from the internet. Open the settings to change audio options."
+    },
+    {
         "id": -1000573653,
         "shortname": "boots.frog",
         "name": "Frog Boots",
@@ -612,6 +624,30 @@
         "description": "A high quality carburetor for a combustion engine. Mixes air and fuel to the proper ratio."
     },
     {
+        "id": 1081921512,
+        "shortname": "cardtable",
+        "name": "Card Table",
+        "description": "A table for playing card games"
+    },
+    {
+        "id": 476066818,
+        "shortname": "cassette",
+        "name": "Cassette - Long",
+        "description": "A tape that you can record audio on to using a Cassette Recorder. Stores up to 30s of audio."
+    },
+    {
+        "id": -912398867,
+        "shortname": "cassette.medium",
+        "name": "Cassette - Medium",
+        "description": "A tape that you can record audio on to using a Cassette Recorder. Stores up to 20s of audio."
+    },
+    {
+        "id": 1523403414,
+        "shortname": "cassette.short",
+        "name": "Cassette - Short",
+        "description": "A tape that you can record audio on to using a Cassette Recorder. Stores up to 10s of audio."
+    },
+    {
         "id": 634478325,
         "shortname": "cctv.camera",
         "name": "CCTV Camera",
@@ -780,6 +816,12 @@
         "description": "A Computer station for remote control access"
     },
     {
+        "id": 968421290,
+        "shortname": "connected.speaker",
+        "name": "Connected Speaker",
+        "description": "A small speaker that will play any audio from a connected Boom Box."
+    },
+    {
         "id": 1367190888,
         "shortname": "corn",
         "name": "Corn",
@@ -862,6 +904,24 @@
         "shortname": "diesel_barrel",
         "name": "Diesel Fuel",
         "description": "Appropriate fuel for the excavator"
+    },
+    {
+        "id": 1895235349,
+        "shortname": "discoball",
+        "name": "Disco Ball",
+        "description": "Get groovy with this stunning disco ball."
+    },
+    {
+        "id": 286648290,
+        "shortname": "discofloor",
+        "name": "Disco Floor",
+        "description": "A vibrant flashing floor that pulses in time to music."
+    },
+    {
+        "id": 1735402444,
+        "shortname": "discofloor.largetiles",
+        "name": "Disco Floor",
+        "description": "A vibrant flashing floor that pulses in time to music."
     },
     {
         "id": 296519935,
@@ -975,7 +1035,7 @@
         "id": 844440409,
         "shortname": "easter.bronzeegg",
         "name": "Bronze Egg",
-        "description": "A Bronze Egg. Open for a surprise or collect 10 to ugprade to a silver egg."
+        "description": "A Bronze Egg. Open for a surprise or collect 10 to upgrade to a silver egg."
     },
     {
         "id": -1002156085,
@@ -1011,7 +1071,7 @@
         "id": 1171735914,
         "shortname": "electric.andswitch",
         "name": "AND Switch",
-        "description": "A logic gate that allows eletrical passthrough if BOTH inputs receives power, passthrough amount is the greater of either power source"
+        "description": "A logic gate that allows electrical passthrough if BOTH inputs receives power, passthrough amount is the greater of either power source"
     },
     {
         "id": 2100007442,
@@ -1022,19 +1082,19 @@
     {
         "id": 553270375,
         "shortname": "electric.battery.rechargable.large",
-        "name": "Large Rechargable Battery",
-        "description": "A Large Rechargable Battery. Must have a minimum charge of 5 seconds to discharge. Can be wired in series. Charging rate is dependant on power in, with a maximum of 80% efficiency."
+        "name": "Large Rechargeable Battery",
+        "description": "A Large Rechargeable Battery. Must have a minimum charge of 5 seconds to discharge. Can be wired in series. Charging rate is dependant on power in, with a maximum of 80% efficiency."
     },
     {
         "id": 2023888403,
         "shortname": "electric.battery.rechargable.medium",
-        "name": "Medium Rechargable Battery",
+        "name": "Medium Rechargeable Battery",
         "description": "A Medium Rechargable Battery. Must have a minimum charge of 5 seconds to discharge. Can be wired in series. Charging rate is dependant on power in, with a maximum of 80% efficiency."
     },
     {
         "id": -692338819,
         "shortname": "electric.battery.rechargable.small",
-        "name": "Small Rechargable Battery",
+        "name": "Small Rechargeable Battery",
         "description": "A small rechargable battery. Must have a minimum charge of 5 seconds to discharge. Can be wired in series. Charging rate is dependant on power in, with a maximum of 80% efficiency."
     },
     {
@@ -1113,7 +1173,7 @@
         "id": -1286302544,
         "shortname": "electric.orswitch",
         "name": "OR Switch",
-        "description": "A logic gate that allows eletrical passthrough if EITHER input receives power, passthrough amount is the greater of either power source"
+        "description": "A logic gate that allows electrical passthrough if EITHER input receives power, passthrough amount is the greater of either power source"
     },
     {
         "id": -2049214035,
@@ -1191,7 +1251,7 @@
         "id": 1293102274,
         "shortname": "electric.xorswitch",
         "name": "XOR Switch",
-        "description": "An exclusive-or logic gate that allows eletrical passthrough if ONLY ONE input receives power, passthrough amount is whichever single input is active. if BOTH inputs recieve power, passthrough will be zero."
+        "description": "An exclusive-or logic gate that allows electrical passthrough if ONLY ONE input receives power, passthrough amount is whichever single input is active. if BOTH inputs recieve power, passthrough will be zero."
     },
     {
         "id": -1448252298,
@@ -1263,7 +1323,7 @@
         "id": 1324203999,
         "shortname": "firework.boomer.champagne",
         "name": "Champagne Boomer",
-        "description": "A very large mortar type firework with an massive champagne colored explosion followed by smaller orange starbusrts"
+        "description": "A very large mortar type firework with an massive champagne colored explosion followed by smaller orange starbursts"
     },
     {
         "id": -656349006,
@@ -1332,10 +1392,28 @@
         "description": "Emits a beautiful shower of Violet sparks"
     },
     {
+        "id": 342438846,
+        "shortname": "fish.anchovy",
+        "name": "Anchovy",
+        "description": "A small bony fish commonly found in large schools."
+    },
+    {
+        "id": -587989372,
+        "shortname": "fish.catfish",
+        "name": "Catfish",
+        "description": "A large, whiskered fresh water based predator. Eats everything, so you never know what you'll find in it's stomach."
+    },
+    {
         "id": 1668129151,
         "shortname": "fish.cooked",
         "name": "Cooked Fish",
         "description": "Cooked Fish. Eating it provides a small boost to health, hunger, and thirst."
+    },
+    {
+        "id": -1698937385,
+        "shortname": "fish.herring",
+        "name": "Herring",
+        "description": "A small fish commonly found in a variety of water sources."
     },
     {
         "id": -542577259,
@@ -1344,10 +1422,34 @@
         "description": "A Small group of edible fish."
     },
     {
+        "id": -1904821376,
+        "shortname": "fish.orangeroughy",
+        "name": "Orange Roughy",
+        "description": "A rare fish found in the depths of the ocean. Eats everything, so you never know what you'll find in it's stomach."
+    },
+    {
         "id": 989925924,
         "shortname": "fish.raw",
         "name": "Raw Fish",
         "description": "Raw Fish."
+    },
+    {
+        "id": -851988960,
+        "shortname": "fish.salmon",
+        "name": "Salmon",
+        "description": "A large Salmon, found in fresh and salt water. Eats everything, so you never know what you'll find in it's stomach."
+    },
+    {
+        "id": -1654233406,
+        "shortname": "fish.sardine",
+        "name": "Sardine",
+        "description": "A small oily fish, commonly found in large schools."
+    },
+    {
+        "id": -1768880890,
+        "shortname": "fish.smallshark",
+        "name": "Small Shark",
+        "description": "A small, surprisingly aggressive deep sea predator. Eats everything, so you never know what you'll find in it's stomach."
     },
     {
         "id": -1878764039,
@@ -1356,10 +1458,16 @@
         "description": "A Small Trout. Good for a few meals."
     },
     {
+        "id": 680234026,
+        "shortname": "fish.yellowperch",
+        "name": "Yellow Perch",
+        "description": "A Yellow Perch, commonly found in freshwater rivers."
+    },
+    {
         "id": 1569882109,
         "shortname": "fishingrod.handmade",
         "name": "Handmade Fishing Rod",
-        "description": "FIsh for fish"
+        "description": "Use [attack2] to cast out the line and wait for a bite. Requires bait."
     },
     {
         "id": 559147458,
@@ -1450,6 +1558,18 @@
         "shortname": "fun.bass",
         "name": "Shovel Bass",
         "description": "Use this stringed together shovel to play some deep, deep tunes."
+    },
+    {
+        "id": 576509618,
+        "shortname": "fun.boomboxportable",
+        "name": "Portable Boom Box",
+        "description": "A portable Boom Box that can play tapes and internet audio streams. [attack] to start/stop and [attack2] to modify settings."
+    },
+    {
+        "id": -1530414568,
+        "shortname": "fun.casetterecorder",
+        "name": "Cassette Recorder",
+        "description": "Insert a cassette and play the recorded audio with [attack], [attack2] to record new audio and [+reload] to throw."
     },
     {
         "id": -1049881973,
@@ -1608,6 +1728,12 @@
         "description": "Produces a large cloud of opaque greyish white smoke."
     },
     {
+        "id": -568419968,
+        "shortname": "grub",
+        "name": "Grub",
+        "description": "A pale, fleshy insect that can be used for bait. Could also be eaten in desperate situations."
+    },
+    {
         "id": 722955039,
         "shortname": "gun.water",
         "name": "Water Gun",
@@ -1690,6 +1816,12 @@
         "shortname": "hat.boonie",
         "name": "Boonie Hat",
         "description": "A boonie hat."
+    },
+    {
+        "id": 23391694,
+        "shortname": "hat.bunnyhat",
+        "name": "Bunny Hat",
+        "description": "A silly Bunny Hat with wobbly ears to celebrate Easter 2021"
     },
     {
         "id": 1714496074,
@@ -1980,6 +2112,12 @@
         "description": "Cucumbers in a vinegar bath, jarred by an amatuer. Eat at your own risk."
     },
     {
+        "id": 1601468620,
+        "shortname": "jumpsuit.suit.blue",
+        "name": "Blue Jumpsuit",
+        "description": "A Blue Jumpsuit"
+    },
+    {
         "id": -97459906,
         "shortname": "jumpsuit.suit",
         "name": "Jumpsuit",
@@ -2050,6 +2188,12 @@
         "shortname": "largemedkit",
         "name": "Large Medkit",
         "description": "A large medkit."
+    },
+    {
+        "id": 853471967,
+        "shortname": "laserlight",
+        "name": "Laser Light",
+        "description": "A small device that shoots out visible lasers in time to music."
     },
     {
         "id": 1381010055,
@@ -2172,6 +2316,12 @@
         "description": "Cooked pork, Eating it will restore some health, hunger, and thirst."
     },
     {
+        "id": -583379016,
+        "shortname": "megaphone",
+        "name": "Megaphone",
+        "description": "A megaphone that lets you broadcast your voice. [attack] to activate your voice."
+    },
+    {
         "id": -194953424,
         "shortname": "metal.facemask",
         "name": "Metal Facemask",
@@ -2220,6 +2370,12 @@
         "description": "A metal spring. Used to provide motion or resistance in objects."
     },
     {
+        "id": 39600618,
+        "shortname": "microphonestand",
+        "name": "Microphone Stand",
+        "description": "A powered microphone that lets you broadcast your voice. Press [+reload] to change voice mode between high and low pitch."
+    },
+    {
         "id": 1426574435,
         "shortname": "minihelicopter.repair",
         "name": "MC repair",
@@ -2242,6 +2398,12 @@
         "shortname": "mixingtable",
         "name": "Mixing Table",
         "description": "Used for mixing recipes."
+    },
+    {
+        "id": -20045316,
+        "shortname": "mobilephone",
+        "name": "Mobile Phone",
+        "description": "A mobile phone that lets you place calls from anywhere. Truly cutting edge Cobalt technology. Use [attack] to access the dialler."
     },
     {
         "id": 1696050067,
@@ -2679,19 +2841,25 @@
         "id": -173268132,
         "shortname": "rustige_egg_b",
         "name": "Rustigé Egg - Blue",
-        "description": "An beautiful hand crafted white gold and sapphire encrusted egg, with a miniature monument contained inside."
+        "description": "A beautiful hand crafted white gold and sapphire encrusted egg, with a miniature monument contained inside."
     },
     {
         "id": -173268131,
         "shortname": "rustige_egg_c",
         "name": "Rustigé Egg - Purple",
-        "description": "An beautiful hand crafted purple egg with gold lace, a miniature offstore monument is contained inside."
+        "description": "A beautiful hand crafted purple egg with gold lace, a miniature offshore monument is contained inside."
     },
     {
         "id": -173268126,
         "shortname": "rustige_egg_d",
         "name": "Rustigé Egg - Ivory",
-        "description": "An beautiful hand crafted Ivory and gold egg, with a miniature monument contained inside."
+        "description": "A beautiful hand crafted Ivory and gold egg, with a miniature monument contained inside."
+    },
+    {
+        "id": -173268125,
+        "shortname": "rustige_egg_e",
+        "name": "Rustigé Egg - Green",
+        "description": "A beautiful hand crafted gold and green egg, with a miniature traincart contained inside."
     },
     {
         "id": -1978999529,
@@ -2751,7 +2919,7 @@
         "id": -932201673,
         "shortname": "scrap",
         "name": "Scrap",
-        "description": "A pile of random unidentified junk. This can be used in a research bench to create components."
+        "description": "Scrap can be used in a Research table and Workbench to unlock and research items. Often used as a currency throughout the world."
     },
     {
         "id": 524678627,
@@ -3108,12 +3276,6 @@
         "description": "A wolf skull."
     },
     {
-        "id": 553887414,
-        "shortname": "skull_fire_pit",
-        "name": "Skull Fire Pit",
-        "description": "Enjoy burning your enemies remnants to ashes with this Halloween exclusive! Provides warmth and light, and you can cook with it."
-    },
-    {
         "id": -216116642,
         "shortname": "skulldoorknocker",
         "name": "Skull Door Knocker",
@@ -3136,6 +3298,12 @@
         "shortname": "skullspikes.pumpkin",
         "name": "Skull Spikes",
         "description": "A spike of several skulls. Very spooky."
+    },
+    {
+        "id": 553887414,
+        "shortname": "skull_fire_pit",
+        "name": "Skull Fire Pit",
+        "description": "Enjoy burning your enemies remnants to ashes with this Halloween exclusive! Provides warmth and light, and you can cook with it."
     },
     {
         "id": -333406828,
@@ -3240,6 +3408,12 @@
         "description": "A comfortable old sofa. A decorative item which provides comfort and seats two."
     },
     {
+        "id": -343857907,
+        "shortname": "soundlight",
+        "name": "Sound Light",
+        "description": "A light that will pulse in time to music when connected to a Boom Box."
+    },
+    {
         "id": -89874794,
         "shortname": "sparkplug1",
         "name": "Low Quality Spark Plugs",
@@ -3268,6 +3442,18 @@
         "shortname": "spear.wooden",
         "name": "Wooden Spear",
         "description": "Primitive weapon, perfect for hunting your foes. Can be upgraded to Stone Spear."
+    },
+    {
+        "id": -1517740219,
+        "shortname": "speargun",
+        "name": "Speargun",
+        "description": "A speargun which can only be fired underwater. Excellent for hunting Sharks."
+    },
+    {
+        "id": -1800345240,
+        "shortname": "speargun.spear",
+        "name": "Speargun Spear",
+        "description": "Ammunition for a speargun."
     },
     {
         "id": 882559853,
@@ -3346,6 +3532,30 @@
         "shortname": "strobelight",
         "name": "Strobe Light",
         "description": "A flashing light, 3 speeds. Causes seizures."
+    },
+    {
+        "id": -239306133,
+        "shortname": "submarine.torpedo.rising",
+        "name": "Surface torpedo",
+        "description": "A torpedo for use in a submarine. Fires ahead while rising to the water's surface."
+    },
+    {
+        "id": -1671551935,
+        "shortname": "submarine.torpedo.straight",
+        "name": "Direct Torpedo",
+        "description": "A torpedo for use in a submarine. Fires ahead in a straight line."
+    },
+    {
+        "id": 1015352446,
+        "shortname": "submarineduo",
+        "name": "Duo Submarine",
+        "description": "A small two-person submarine."
+    },
+    {
+        "id": -187031121,
+        "shortname": "submarinesolo",
+        "name": "Solo Submarine",
+        "description": "A small one-person submarine."
     },
     {
         "id": -1581843485,
@@ -3957,25 +4167,31 @@
         "id": 1524187186,
         "shortname": "workbench1",
         "name": "Work Bench Level 1",
-        "description": "This allows you to craft items requiring workbench level 1"
+        "description": "This allows you to craft and unlock items requiring workbench level 1"
     },
     {
         "id": -41896755,
         "shortname": "workbench2",
         "name": "Work Bench Level 2",
-        "description": "This allows you to craft items requiring workbench level 2"
+        "description": "This allows you to craft and unlock items requiring workbench level 2"
     },
     {
         "id": -1607980696,
         "shortname": "workbench3",
         "name": "Work Bench Level 3",
-        "description": "This allows you to craft items requiring workbench level 3"
+        "description": "This allows you to craft and unlock items requiring workbench level 3"
     },
     {
         "id": -810326667,
         "shortname": "workcart",
         "name": "Work Cart",
         "description": "A service train designed to run on an underground rail system."
+    },
+    {
+        "id": 1770475779,
+        "shortname": "worm",
+        "name": "Worm",
+        "description": "A small, writhing worm that can be used for bait. Could also be eaten in desperate situations."
     },
     {
         "id": 204970153,
