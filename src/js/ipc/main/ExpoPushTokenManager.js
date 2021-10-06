@@ -25,7 +25,7 @@ class ExpoPushTokenManager {
     }
 
     onRegisterError(event, error) {
-        event.sender.send('push-receiver.register.error', {
+        event.sender.send('expo-push-token.register.error', {
             'error': error,
         });
     }
