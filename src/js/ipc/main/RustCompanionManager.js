@@ -22,9 +22,10 @@ class RustCompanionManager {
         event.sender.send('rust-companion-api.register.success');
     }
 
-    onRegisterError(event, error) {
+    onRegisterError(event, error, responseCode) {
         event.sender.send('rust-companion-api.register.error', {
             'error': error,
+            'response_code': responseCode,
         });
     }
 
@@ -48,8 +49,11 @@ class RustCompanionManager {
 
         }).catch((error) => {
 
+            // get response status code
+            var responseCode = error.response ? error.response.status : 0;
+
             // return error
-            this.onRegisterError(event, error);
+            this.onRegisterError(event, error, responseCode);
 
         });
 

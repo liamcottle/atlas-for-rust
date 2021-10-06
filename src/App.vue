@@ -388,8 +388,24 @@ export default {
     },
 
     onRustCompanionRegisterError(data) {
+
       this.companionPushStatus = Status.ERROR;
       this.companionPushStatusMessage = data.error;
+
+      // check if rustplus token needs to be refreshed
+      if(data.response_code === 403){
+
+        // remove cached rustplus token
+        window.DataStore.Config.clearRustPlusToken();
+
+        // tell user their rustplus token has expired
+        alert("Your RustPlus token has expired. Please connect with RustPlus again.");
+
+        // reload window
+        window.location.reload();
+
+      }
+
     },
 
     setupNotifications() {
