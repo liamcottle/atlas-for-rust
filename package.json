@@ -1,7 +1,7 @@
 {
   "name": "@liamcottle/atlas-for-rust",
   "description": "Atlas for Rust",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Liam Cottle",
   "private": true,
   "main": "background.js",
