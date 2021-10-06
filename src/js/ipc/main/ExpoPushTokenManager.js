@@ -1,4 +1,5 @@
 const axios = require('axios');
+const https = require('https');
 
 /**
  * This class is responsible for obtaining an Expo Push Token.
@@ -45,6 +46,17 @@ class ExpoPushTokenManager {
             deviceToken: data.deviceToken,
             type: data.type,
             development: data.development,
+        }, {
+
+            /**
+             * todo: this is insecure and should not be used, but electron v11 is not going to backport the fix
+             * ignores invalid ssl certificates when registering for expo push token
+             * temporary fix for: https://github.com/liamcottle/atlas-for-rust/issues/5
+             */
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+            }),
+
         }).then((response) => {
 
             // return expo push token
