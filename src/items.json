@@ -3542,7 +3542,7 @@
     {
         "id": -1671551935,
         "shortname": "submarine.torpedo.straight",
-        "name": "Direct Torpedo",
+        "name": "Torpedo",
         "description": "A torpedo for use in a submarine. Fires ahead in a straight line."
     },
     {
@@ -4166,19 +4166,19 @@
     {
         "id": 1524187186,
         "shortname": "workbench1",
-        "name": "Work Bench Level 1",
+        "name": "Workbench Level 1",
         "description": "This allows you to craft and unlock items requiring workbench level 1"
     },
     {
         "id": -41896755,
         "shortname": "workbench2",
-        "name": "Work Bench Level 2",
+        "name": "Workbench Level 2",
         "description": "This allows you to craft and unlock items requiring workbench level 2"
     },
     {
         "id": -1607980696,
         "shortname": "workbench3",
-        "name": "Work Bench Level 3",
+        "name": "Workbench Level 3",
         "description": "This allows you to craft and unlock items requiring workbench level 3"
     },
     {
