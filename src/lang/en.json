@@ -31,6 +31,7 @@
   "monument.water_well_e_display_name": "Water Well",
   "monument.large_fishing_village_display_name": "Large Fishing Village",
   "monument.fishing_village_display_name": "Fishing Village",
+  "monument.underwater_lab": "Underwater Lab",
   "monument.hapis_convoy_display_name": "Convoy",
   "monument.hapis_listening_station": "Listening Station",
   "monument.hapis_sitea_display_name": "Site A",
@@ -49,5 +50,5 @@
   "monument.Hapis_outpost_b3": "Outpost B3",
   "monument.train_tunnel_display_name": "Train Tunnel",
   "monument.stables_a": "Ranch",
-  "monument.stables_b": "Ranch"
+  "monument.stables_b": "Large Barn"
 }
