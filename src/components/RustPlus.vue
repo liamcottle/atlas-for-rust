@@ -96,7 +96,7 @@
             <span v-if="teamMember.isOnline && !teamMember.isAlive"> (Dead)</span>
           </l-tooltip>
           <l-icon>
-            <img :src="teamMember.avatarUrl" width="30" height="30" class="border-2" style="border-radius:50%;background-color:#000000;" :class="{
+            <img :src="teamMember.avatarUrl" class="border-2" style="border-radius:50%;background-color:#000000;width:30px;height:30px" :class="{
             'border-rust-team-member-offline': !teamMember.isOnline,
             'border-rust-team-member-online': teamMember.isOnline && teamMember.isAlive,
             'border-rust-team-member-dead': teamMember.isOnline && !teamMember.isAlive,
