@@ -37,14 +37,14 @@ class ExpoPushTokenReceiver extends EventEmitter {
      * - register.success
      * - register.error
      */
-    register(deviceId, experienceId, appId, fcmToken) {
+    register(deviceId, projectId, appId, fcmToken) {
         ipcRenderer.send('expo-push-token.register', {
+            type: 'fcm',
             deviceId: deviceId,
-            experienceId: experienceId,
+            development: false,
             appId: appId,
             deviceToken: fcmToken,
-            type: 'fcm',
-            development: false,
+            projectId: projectId,
         });
     }
 

@@ -282,14 +282,14 @@ export default {
 
       // configure expo data
       var deviceId = window.DataStore.Config.getExpoDeviceId();
-      var experienceId = '@facepunch/RustCompanion';
+      var projectId = '49451aca-a822-41e6-ad59-955718d0ff9c';
       var appId = 'com.facepunch.rust.companion';
       var fcmToken = window.DataStore.FCM.getCredentials().fcm.token;
 
       // register expo token
       this.expoStatus = Status.NOT_READY;
       this.expoStatusMessage = "Registering...";
-      this.expoPushTokenReceiver.register(deviceId, experienceId, appId, fcmToken);
+      this.expoPushTokenReceiver.register(deviceId, projectId, appId, fcmToken);
 
     },
 
@@ -303,29 +303,23 @@ export default {
       // save persistent id to data store
       window.DataStore.FCM.addPersistentId(data.persistentId);
 
-      // make sure notification exists
-      var notification = data.notification;
-      if(!notification){
-        console.log("notification is null!");
+      // make sure app data exists
+      var appData = data.appData;
+      if(!appData){
+        console.log("FCM notification appData is null!");
         return;
       }
 
-      // make sure notification has data
-      if(!notification.data){
-        console.log("notification has no data!");
-        console.log(notification);
+      // make sure app data has body
+      const body = appData.find((item) => item.key === "body");
+      if(!body){
+        console.log("FCM notification appData has no body!");
+        console.log(appData);
         return;
       }
 
-      // make sure notification has body
-      if(!notification.data.body){
-        console.log("notification has no body!");
-        console.log(notification);
-        return;
-      }
-
-      // parse notification
-      var notificationBody = JSON.parse(notification.data.body);
+      // parse body
+      var notificationBody = JSON.parse(body.value);
 
       // make sure body has type
       if(!notificationBody.type){
@@ -430,7 +424,7 @@ export default {
 
         // register for a new set of fcm credentials
         this.fcmStatus = "Registering...";
-        this.fcmNotificationReceiver.register('976529667804');
+        this.fcmNotificationReceiver.register();
 
       }
 

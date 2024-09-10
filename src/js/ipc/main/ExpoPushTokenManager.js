@@ -40,12 +40,12 @@ class ExpoPushTokenManager {
 
         // register with expo
         axios.post('https://exp.host/--/api/v2/push/getExpoPushToken', {
+            type: data.type,
             deviceId: data.deviceId,
-            experienceId: data.experienceId,
+            development: data.development,
             appId: data.appId,
             deviceToken: data.deviceToken,
-            type: data.type,
-            development: data.development,
+            projectId: data.projectId,
         }, {
 
             /**

@@ -51,16 +51,20 @@ class FCMNotificationReceiver extends EventEmitter {
     }
 
     /**
-     * Ask the main process to register a new android device
-     * to receive fcm notifications for the provided senderId.
+     * Ask the main process to register a new android device to receive fcm notifications.
      *
      * Events Emitted:
      * - register.success
      * - register.error
      */
-    register(senderId) {
+    register() {
         ipcRenderer.send('push-receiver.register', {
-            senderId: senderId,
+            apiKey: "AIzaSyB5y2y-Tzqb4-I4Qnlsh_9naYv_TD8pCvY",
+            projectId: "rust-companion-app",
+            gcmSenderId: "976529667804",
+            gmsAppId: "1:976529667804:android:d6f1ddeb4403b338fea619",
+            androidPackageName: "com.facepunch.rust.companion",
+            androidPackageCert: "E28D05345FB78A7A1A63D70F4A302DBF426CA5AD",
         });
     }
 

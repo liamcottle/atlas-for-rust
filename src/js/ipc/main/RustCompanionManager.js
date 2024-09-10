@@ -40,7 +40,7 @@ class RustCompanionManager {
         axios.post('https://companion-rust.facepunch.com:443/api/push/register', {
             AuthToken: data.token,
             DeviceId: data.deviceId,
-            PushKind: 0,
+            PushKind: 3,
             PushToken: data.expoPushToken,
         }).then((response) => {
 

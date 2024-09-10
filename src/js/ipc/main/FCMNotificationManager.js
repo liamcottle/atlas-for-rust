@@ -1,4 +1,7 @@
-const {register, listen} = require('push-receiver');
+const {
+    AndroidFCM,
+    Client: PushReceiverClient,
+} = require('@liamcottle/push-receiver');
 
 /**
  * This class is responsible for registering a new android device with fcm
@@ -42,11 +45,8 @@ class FCMNotificationManager {
         event.sender.send('push-receiver.notifications.listen.stopped');
     }
 
-    onNotificationReceived(event, notification, persistentId) {
-        event.sender.send('push-receiver.notifications.received', {
-            'notification': notification,
-            'persistentId': persistentId,
-        });
+    onNotificationReceived(event, data) {
+        event.sender.send('push-receiver.notifications.received', data);
     }
 
     onNotificationError(event, error) {
@@ -64,7 +64,7 @@ class FCMNotificationManager {
         try {
 
             // register with gcm/fcm
-            const credentials = await register(data.senderId);
+            const credentials = await AndroidFCM.register(data.apiKey, data.projectId, data.gcmSenderId, data.gmsAppId, data.androidPackageName, data.androidPackageCert);
 
             // registering was successful
             this.onRegisterSuccess(event, credentials);
@@ -90,12 +90,17 @@ class FCMNotificationManager {
             let persistentIds = data.persistentIds || [];
 
             // start listening for notifications
-            this.notificationClient = await listen({...credentials, persistentIds}, ({notification, persistentId}) => {
+            const androidId = credentials.gcm.androidId;
+            const securityToken = credentials.gcm.securityToken;
+            const client = new PushReceiverClient(androidId, securityToken, persistentIds);
+            client.on('ON_DATA_RECEIVED', (data) => {
 
                 // notification was received
-                this.onNotificationReceived(event, notification, persistentId);
+                this.onNotificationReceived(event, data);
 
             });
+
+            client.connect();
 
             // listening for notifications
             this.onNotificationListenStart(event);
